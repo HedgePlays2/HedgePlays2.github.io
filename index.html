@@ -1,15 +1,123 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>Hedge Web Arcade</title>
-  </head>
-  <body>
-    <h1>Welcome to Hedge’s Web Arcade</h1>
-    <ul>
-      <li><a href="Sonic-Mania-Plus-WEB/">Sonic-Mania-Plus-WEB</a></li>
-      <li><a href="sonic-cd-web/">Sonic CD</a></li>
-      <li><a href="undertale-yellow-web/">Undertale Yellow</a></li>
-      <li><a href="sonic-time-twisted-web/">Sonic Time Twisted</a></li>
-    </ul>
-  </body>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hedge Web Arcade</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: #f5f7fa;
+      color: #222;
+    }
+
+    header {
+      background: white;
+      padding: 30px 40px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+      text-align: center;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 2.4rem;
+      font-weight: 700;
+      color: #111;
+    }
+
+    p.subtitle {
+      margin-top: 8px;
+      font-size: 1.1rem;
+      color: #555;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 25px;
+      padding: 40px;
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    .card {
+      background: white;
+      border-radius: 12px;
+      padding: 25px;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+    }
+
+    .card h2 {
+      margin: 0;
+      font-size: 1.4rem;
+      color: #222;
+    }
+
+    .card a {
+      display: inline-block;
+      margin-top: 12px;
+      padding: 10px 18px;
+      background: #0078ff;
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: 600;
+      transition: background 0.2s;
+    }
+
+    .card a:hover {
+      background: #005fcc;
+    }
+
+    footer {
+      text-align: center;
+      padding: 25px;
+      color: #666;
+      font-size: 0.9rem;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>Hedge Web Arcade</h1>
+    <p class="subtitle">Play games instantly — no downloads, no installs.</p>
+  </header>
+
+  <div class="grid">
+    <div class="card">
+      <h2>Sonic Mania Plus Web</h2>
+      <a href="Sonic-Mania-Plus-WEB/">Play Now</a>
+    </div>
+
+    <div class="card">
+      <h2>Sonic CD Web</h2>
+      <a href="Sonic-CDWeb/">Play Now</a>
+    </div>
+
+    <div class="card">
+      <h2>Undertale Yellow Web</h2>
+      <a href="utyellow/">Play Now</a>
+    </div>
+
+    <div class="card">
+      <h2>Sonic Time Twisted Web</h2>
+      <a href="sonic-time-twisted-web/">Play Now</a>
+    </div>
+  </div>
+
+  <footer>
+     2026 Hedge — Hosted on GitHub Pages
+  </footer>
+</body>
 </html>
