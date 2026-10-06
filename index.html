@@ -48,6 +48,14 @@
       position: relative;
     }
 
+    .logo {
+      display: block;
+      width: 180px;
+      max-width: 70%;
+      height: auto;
+      margin: 0 auto 15px;
+    }
+
     h1 {
       margin: 0;
       font-size: 2.4rem;
@@ -199,6 +207,10 @@
         padding: 70px 20px 30px;
       }
 
+      .logo {
+        width: 140px;
+      }
+
       .theme-toggle {
         top: 15px;
         right: 15px;
@@ -216,7 +228,10 @@
   <header>
     <button class="theme-toggle" id="themeToggle">🌙 Dark Mode</button>
 
+    <img src="logo.png" alt="Hedge Web Arcade Logo" class="logo">
+
     <h1>Hedge Web Arcade</h1>
+
     <p class="subtitle">
       Play games instantly — no downloads, no installs.
     </p>
@@ -244,16 +259,16 @@
 
     <div class="card">
       <h2>Sonic 1 Web</h2>
-      <p>Hedge's Sonic 1 browser port.</p>
-      <span class="creator-label">Hedge Project</span>
+      <p>Sonic 1 browser port.</p>
+      <span class="creator-label">Not Hedge Project</span>
       <br>
       <a href="sonic-1-jsdlivr/">Play Now</a>
     </div>
 
     <div class="card">
       <h2>Sonic 2 Web Port</h2>
-      <p>Hedge's Sonic 2 browser port.</p>
-      <span class="creator-label">Hedge Project</span>
+      <p>Sonic 2 browser port.</p>
+      <span class="creator-label">Not Hedge Project</span>
       <br>
       <a href="Sonic2-Web-Port/">Play Now</a>
     </div>
@@ -330,21 +345,10 @@
       Sonic Mania Plus Web and Undertale Yellow Web are not made by Hedge.
     </p>
 
-    <p>
-      Sonic Time Twisted © Overbound Game Studio
-    </p>
-
-    <p>
-      Sonic Mania Plus © SEGA
-    </p>
-
-    <p>
-      Sonic CD © SEGA
-    </p>
-
-    <p>
-      Undertale Yellow © Team Undertale Yellow
-    </p>
+    <p>Sonic Time Twisted © Overbound Game Studio</p>
+    <p>Sonic Mania Plus © SEGA</p>
+    <p>Sonic CD © SEGA</p>
+    <p>Undertale Yellow © Team Undertale Yellow</p>
 
     <p>
       All original games and characters belong to their respective creators
@@ -369,14 +373,12 @@
       }
     }
 
-    // Load saved theme
     if (localStorage.getItem("hedgeTheme") === "dark") {
       document.body.classList.add("dark-mode");
     }
 
     updateThemeButton();
 
-    // Toggle theme
     themeToggle.addEventListener("click", () => {
       document.body.classList.toggle("dark-mode");
 
