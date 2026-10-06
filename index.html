@@ -15,6 +15,8 @@
       --button: #0078ff;
       --button-hover: #005fcc;
       --shadow: rgba(0,0,0,0.06);
+      --label-bg: #e8f1ff;
+      --label-text: #0066cc;
     }
 
     body.dark-mode {
@@ -26,6 +28,8 @@
       --button: #1687ff;
       --button-hover: #006bd6;
       --shadow: rgba(0,0,0,0.35);
+      --label-bg: #182b40;
+      --label-text: #65aaff;
     }
 
     body {
@@ -88,7 +92,7 @@
       text-align: center;
       margin: 0 auto 10px;
       color: var(--secondary-text);
-      max-width: 700px;
+      max-width: 750px;
     }
 
     .grid {
@@ -123,6 +127,17 @@
     .card p {
       color: var(--secondary-text);
       margin: 10px 0 0;
+    }
+
+    .creator-label {
+      display: inline-block;
+      margin-top: 12px;
+      padding: 6px 10px;
+      border-radius: 6px;
+      background: var(--label-bg);
+      color: var(--label-text);
+      font-size: 0.85rem;
+      font-weight: 700;
     }
 
     .card a {
@@ -202,14 +217,18 @@
     <button class="theme-toggle" id="themeToggle">🌙 Dark Mode</button>
 
     <h1>Hedge Web Arcade</h1>
-    <p class="subtitle">Play games instantly — no downloads, no installs.</p>
+    <p class="subtitle">
+      Play games instantly — no downloads, no installs.
+    </p>
   </header>
 
+
   <!-- Hedge's Web Ports -->
-  <h2 class="section-title">Hedge's Web Ports</h2>
+  <h2 class="section-title">🛠️ Hedge's Web Ports & Projects</h2>
 
   <p class="section-description">
-    Web ports and browser projects created or worked on by Hedge.
+    Web ports and projects created, developed, or worked on by Hedge.
+    These are the projects that are part of Hedge's own web-port work.
   </p>
 
   <div class="grid">
@@ -217,83 +236,127 @@
     <div class="card">
       <h2>Sonic Time Twisted Web</h2>
       <p>Hedge's web port of Sonic Time Twisted.</p>
+      <span class="creator-label">Made / Ported by Hedge</span>
+      <br>
       <a href="sonic-time-twisted-web/">Play Now</a>
     </div>
 
     <div class="card">
       <h2>Sonic 1 Web</h2>
       <p>Hedge's Sonic 1 browser port.</p>
+      <span class="creator-label">Made / Ported by Hedge</span>
+      <br>
       <a href="sonic-1-jsdlivr/">Play Now</a>
     </div>
 
     <div class="card">
       <h2>Sonic 2 Web Port</h2>
       <p>Hedge's Sonic 2 browser port.</p>
+      <span class="creator-label">Made / Ported by Hedge</span>
+      <br>
       <a href="Sonic2-Web-Port/">Play Now</a>
     </div>
 
     <div class="card">
       <h2>Bendy and the Ink Machine Web</h2>
-      <p>Hedge's browser port of BATIM.</p>
+      <p>Hedge's browser port project.</p>
+      <span class="creator-label">Made / Ported by Hedge</span>
+      <br>
       <a href="BATIM-Web/">Play Now</a>
     </div>
 
     <div class="card">
       <h2>Sonic Origins Web</h2>
       <p>A work-in-progress browser port project.</p>
+      <span class="creator-label">Hedge Project</span>
+      <br>
       <span class="status">WIP</span>
     </div>
 
     <div class="card">
       <h2>Sonic Triple Trouble 16-Bit Web</h2>
       <p>A planned browser port project.</p>
+      <span class="creator-label">Hedge Project</span>
+      <br>
       <span class="status">PLANNED</span>
     </div>
 
   </div>
 
+
   <!-- Other Web Games -->
-  <h2 class="section-title">Other Web Games</h2>
+  <h2 class="section-title">🎮 Other Web Games</h2>
 
   <p class="section-description">
-    Other games and web ports available through the Hedge Web Arcade.
+    These games were NOT made by Hedge. They are included in the Hedge Web Arcade
+    as web games/ports created by their respective developers and rights holders.
   </p>
 
   <div class="grid">
 
     <div class="card">
       <h2>Sonic Mania Plus Web</h2>
+      <p>A web version created by its respective developers/community.</p>
+      <span class="creator-label">Not Made by Hedge</span>
+      <br>
       <a href="Sonic-Mania-Plus-WEB/">Play Now</a>
     </div>
 
     <div class="card">
       <h2>Sonic CD Web</h2>
+      <p>A web version of Sonic CD.</p>
+      <span class="creator-label">Not Made by Hedge</span>
+      <br>
       <a href="Sonic-CDWeb/">Play Now</a>
     </div>
 
     <div class="card">
       <h2>Undertale Yellow Web</h2>
+      <p>A web version of Undertale Yellow.</p>
+      <span class="creator-label">Not Made by Hedge</span>
+      <br>
       <a href="utyellow/">Play Now</a>
     </div>
 
   </div>
 
+
   <!-- Credits -->
   <section class="credits">
-    <h2>Credits</h2>
+    <h2>Credits & Ownership</h2>
 
-    <p>All games belong to their respective creators and rights holders.</p>
-    <p>This site only hosts web ports for educational and archival purposes.</p>
+    <p>
+      <strong>Important:</strong> Hedge Web Arcade does not claim ownership
+      of games created by other developers.
+    </p>
+
+    <p>
+      Games in the "Other Web Games" section were created by their respective
+      developers, creators, and rights holders.
+    </p>
+
+    <p>
+      This site provides access to web ports and browser projects for
+      educational, archival, and entertainment purposes.
+    </p>
 
     <p>Sonic Mania Plus © SEGA</p>
     <p>Sonic CD © SEGA</p>
     <p>Undertale Yellow © Team Undertale Yellow</p>
     <p>Sonic Time Twisted © Overbound Game Studio</p>
+
+    <p>
+      Hedge Web Arcade is an independent fan project and is not affiliated
+      with SEGA, Overbound Game Studio, Joey Drew Studios, or other
+      respective rights holders.
+    </p>
   </section>
+
 
   <footer>
     2026 Hedge — Hosted on GitHub Pages
   </footer>
+
 
   <script>
     const themeToggle = document.getElementById("themeToggle");
