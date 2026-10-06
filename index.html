@@ -6,44 +6,88 @@
   <title>Hedge Web Arcade</title>
 
   <style>
+    :root {
+      --background: #f5f7fa;
+      --text: #222;
+      --header: #ffffff;
+      --card: #ffffff;
+      --secondary-text: #666;
+      --button: #0078ff;
+      --button-hover: #005fcc;
+      --shadow: rgba(0,0,0,0.06);
+    }
+
+    body.dark-mode {
+      --background: #111318;
+      --text: #f1f1f1;
+      --header: #1a1d24;
+      --card: #1b1f27;
+      --secondary-text: #aaa;
+      --button: #1687ff;
+      --button-hover: #006bd6;
+      --shadow: rgba(0,0,0,0.35);
+    }
+
     body {
       margin: 0;
       font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      background: #f5f7fa;
-      color: #222;
+      background: var(--background);
+      color: var(--text);
+      transition: background 0.25s, color 0.25s;
     }
 
     header {
-      background: white;
+      background: var(--header);
       padding: 30px 40px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+      box-shadow: 0 2px 10px var(--shadow);
       text-align: center;
+      position: relative;
     }
 
     h1 {
       margin: 0;
       font-size: 2.4rem;
       font-weight: 700;
-      color: #111;
+      color: var(--text);
     }
 
     p.subtitle {
       margin-top: 8px;
       font-size: 1.1rem;
-      color: #555;
+      color: var(--secondary-text);
+    }
+
+    .theme-toggle {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      border: none;
+      background: var(--button);
+      color: white;
+      padding: 10px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.95rem;
+      font-weight: 600;
+      transition: background 0.2s, transform 0.2s;
+    }
+
+    .theme-toggle:hover {
+      background: var(--button-hover);
+      transform: translateY(-2px);
     }
 
     .section-title {
       text-align: center;
       margin: 40px 0 10px;
       font-size: 1.9rem;
-      color: #111;
+      color: var(--text);
     }
 
     .section-description {
       text-align: center;
       margin: 0 auto 10px;
-      color: #666;
+      color: var(--secondary-text);
       max-width: 700px;
     }
 
@@ -57,27 +101,27 @@
     }
 
     .card {
-      background: white;
+      background: var(--card);
       border-radius: 12px;
       padding: 25px;
       text-align: center;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
-      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 12px var(--shadow);
+      transition: transform 0.2s, box-shadow 0.2s, background 0.25s;
     }
 
     .card:hover {
       transform: translateY(-6px);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+      box-shadow: 0 8px 20px var(--shadow);
     }
 
     .card h2 {
       margin: 0;
       font-size: 1.4rem;
-      color: #222;
+      color: var(--text);
     }
 
     .card p {
-      color: #666;
+      color: var(--secondary-text);
       margin: 10px 0 0;
     }
 
@@ -85,7 +129,7 @@
       display: inline-block;
       margin-top: 12px;
       padding: 10px 18px;
-      background: #0078ff;
+      background: var(--button);
       color: white;
       text-decoration: none;
       border-radius: 8px;
@@ -94,7 +138,7 @@
     }
 
     .card a:hover {
-      background: #005fcc;
+      background: var(--button-hover);
     }
 
     .status {
@@ -102,18 +146,52 @@
       margin-top: 12px;
       padding: 7px 12px;
       border-radius: 6px;
-      background: #eee;
-      color: #666;
+      background: #333;
+      color: #fff;
       font-size: 0.9rem;
       font-weight: 600;
+    }
+
+    body.dark-mode .status {
+      background: #333842;
+      color: #ddd;
+    }
+
+    .credits {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 20px;
+      text-align: center;
+      color: var(--secondary-text);
+    }
+
+    .credits h2 {
+      font-size: 1.6rem;
+      margin-bottom: 10px;
+      color: var(--text);
     }
 
     footer {
       text-align: center;
       padding: 25px;
-      color: #666;
+      color: var(--secondary-text);
       font-size: 0.9rem;
       margin-top: 40px;
+    }
+
+    @media (max-width: 600px) {
+      header {
+        padding: 70px 20px 30px;
+      }
+
+      .theme-toggle {
+        top: 15px;
+        right: 15px;
+      }
+
+      .grid {
+        padding: 20px;
+      }
     }
   </style>
 </head>
@@ -121,6 +199,8 @@
 <body>
 
   <header>
+    <button class="theme-toggle" id="themeToggle">🌙 Dark Mode</button>
+
     <h1>Hedge Web Arcade</h1>
     <p class="subtitle">Play games instantly — no downloads, no installs.</p>
   </header>
@@ -199,8 +279,8 @@
   </div>
 
   <!-- Credits -->
-  <section style="max-width: 900px; margin: 40px auto; padding: 20px; text-align: center; color: #555;">
-    <h2 style="font-size: 1.6rem; margin-bottom: 10px;">Credits</h2>
+  <section class="credits">
+    <h2>Credits</h2>
 
     <p>All games belong to their respective creators and rights holders.</p>
     <p>This site only hosts web ports for educational and archival purposes.</p>
@@ -214,6 +294,38 @@
   <footer>
     2026 Hedge — Hosted on GitHub Pages
   </footer>
+
+  <script>
+    const themeToggle = document.getElementById("themeToggle");
+
+    function updateThemeButton() {
+      if (document.body.classList.contains("dark-mode")) {
+        themeToggle.textContent = "☀️ Light Mode";
+      } else {
+        themeToggle.textContent = "🌙 Dark Mode";
+      }
+    }
+
+    // Load saved theme
+    if (localStorage.getItem("hedgeTheme") === "dark") {
+      document.body.classList.add("dark-mode");
+    }
+
+    updateThemeButton();
+
+    // Toggle theme
+    themeToggle.addEventListener("click", () => {
+      document.body.classList.toggle("dark-mode");
+
+      if (document.body.classList.contains("dark-mode")) {
+        localStorage.setItem("hedgeTheme", "dark");
+      } else {
+        localStorage.setItem("hedgeTheme", "light");
+      }
+
+      updateThemeButton();
+    });
+  </script>
 
 </body>
 </html>
