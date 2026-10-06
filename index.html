@@ -33,11 +33,25 @@
       color: #555;
     }
 
+    .section-title {
+      text-align: center;
+      margin: 40px 0 10px;
+      font-size: 1.9rem;
+      color: #111;
+    }
+
+    .section-description {
+      text-align: center;
+      margin: 0 auto 10px;
+      color: #666;
+      max-width: 700px;
+    }
+
     .grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
       gap: 25px;
-      padding: 40px;
+      padding: 25px 40px 40px;
       max-width: 1100px;
       margin: auto;
     }
@@ -62,6 +76,11 @@
       color: #222;
     }
 
+    .card p {
+      color: #666;
+      margin: 10px 0 0;
+    }
+
     .card a {
       display: inline-block;
       margin-top: 12px;
@@ -78,6 +97,17 @@
       background: #005fcc;
     }
 
+    .status {
+      display: inline-block;
+      margin-top: 12px;
+      padding: 7px 12px;
+      border-radius: 6px;
+      background: #eee;
+      color: #666;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
     footer {
       text-align: center;
       padding: 25px;
@@ -89,12 +119,50 @@
 </head>
 
 <body>
+
   <header>
     <h1>Hedge Web Arcade</h1>
     <p class="subtitle">Play games instantly — no downloads, no installs.</p>
   </header>
 
+  <!-- Hedge's Web Ports -->
+  <h2 class="section-title">Hedge's Web Ports</h2>
+
+  <p class="section-description">
+    Web ports and browser projects created or worked on by Hedge.
+  </p>
+
   <div class="grid">
+
+    <div class="card">
+      <h2>Sonic Time Twisted Web</h2>
+      <p>Web Port of Sonic Time Twisted.</p>
+      <a href="sonic-time-twisted-web/">Play Now</a>
+    </div>
+
+    <div class="card">
+      <h2>Sonic Origins Web</h2>
+      <p>A work-in-progress browser port project.</p>
+      <span class="status">WIP</span>
+    </div>
+
+    <div class="card">
+      <h2>Sonic Triple Trouble 16-Bit Web</h2>
+      <p>A planned browser port project.</p>
+      <span class="status">PLANNED</span>
+    </div>
+
+  </div>
+
+  <!-- Other Web Games -->
+  <h2 class="section-title">Other Web Games</h2>
+
+  <p class="section-description">
+    Other games and web ports available through the Hedge Web Arcade.
+  </p>
+
+  <div class="grid">
+
     <div class="card">
       <h2>Sonic Mania Plus Web</h2>
       <a href="Sonic-Mania-Plus-WEB/">Play Now</a>
@@ -110,23 +178,24 @@
       <a href="utyellow/">Play Now</a>
     </div>
 
-    <div class="card">
-      <h2>Sonic Time Twisted Web</h2>
-      <a href="sonic-time-twisted-web/">Play Now</a>
-    </div>
   </div>
-<section style="max-width: 900px; margin: 40px auto; padding: 20px; text-align: center; color: #555;">
-  <h2 style="font-size: 1.6rem; margin-bottom: 10px;">Credits</h2>
-  <p>All games belong to their respective creators and rights holders.</p>
-  <p>This site only hosts web ports for educational and archival purposes.</p>
-  <p>Sonic Mania Plus © SEGA</p>
-  <p>Sonic CD © SEGA</p>
-  <p>Undertale Yellow © Team Undertale Yellow</p>
-  <p>Sonic Time Twisted © Overbound Game Studio</p>
-</section>
+
+  <!-- Credits -->
+  <section style="max-width: 900px; margin: 40px auto; padding: 20px; text-align: center; color: #555;">
+    <h2 style="font-size: 1.6rem; margin-bottom: 10px;">Credits</h2>
+
+    <p>All games belong to their respective creators and rights holders.</p>
+    <p>This site only hosts web ports for educational and archival purposes.</p>
+
+    <p>Sonic Mania Plus © SEGA</p>
+    <p>Sonic CD © SEGA</p>
+    <p>Undertale Yellow © Team Undertale Yellow</p>
+    <p>Sonic Time Twisted © Overbound Game Studio</p>
+  </section>
 
   <footer>
-     2026 Hedge — Hosted on GitHub Pages
+    2026 Hedge — Hosted on GitHub Pages
   </footer>
+
 </body>
 </html>
