@@ -103,6 +103,64 @@
       max-width: 750px;
     }
 
+    .arcade-tools {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      max-width: 1020px;
+      margin: 24px auto 0;
+      padding: 0 24px;
+    }
+
+    .arcade-tools input,
+    .arcade-tools select,
+    .arcade-tools button {
+      min-height: 42px;
+      border: 1px solid #c9ced8;
+      border-radius: 8px;
+      padding: 9px 13px;
+      background: var(--card);
+      color: var(--text);
+      font: inherit;
+    }
+
+    .arcade-tools input {
+      flex: 1 1 240px;
+      max-width: 420px;
+    }
+
+    .arcade-tools button {
+      cursor: pointer;
+      border-color: var(--button);
+      background: var(--button);
+      color: white;
+      font-weight: 600;
+    }
+
+    .arcade-tools button[aria-pressed="true"] {
+      background: var(--button-hover);
+      outline: 2px solid var(--button);
+      outline-offset: 2px;
+    }
+
+    .game-count {
+      flex-basis: 100%;
+      margin: 0;
+      text-align: center;
+      color: var(--secondary-text);
+      font-size: 0.9rem;
+    }
+
+    .no-games {
+      display: none;
+      grid-column: 1 / -1;
+      text-align: center;
+      color: var(--secondary-text);
+      padding: 30px;
+    }
+
     .grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -276,6 +334,21 @@
     worked on by Hedge, while others were created by different developers.
     Creator credits are listed on each game.
   </p>
+
+  <section class="arcade-tools" aria-label="Find games">
+    <input id="gameSearch" type="search" placeholder="Search games..." aria-label="Search games">
+    <select id="categoryFilter" aria-label="Filter by category">
+      <option value="all">All categories</option>
+      <option value="sonic">Sonic</option>
+      <option value="horror">Horror</option>
+      <option value="rpg">RPG & Story</option>
+      <option value="platformer">Platformers</option>
+      <option value="minecraft">Minecraft</option>
+      <option value="other">Other</option>
+    </select>
+    <button type="button" id="recentToggle" aria-pressed="false">✨ Recently Added</button>
+    <p id="gameCount" class="game-count" aria-live="polite"></p>
+  </section>
 
   <div class="grid">
 
@@ -709,6 +782,81 @@
 
 
   <script>
+    const gameSearch = document.getElementById("gameSearch");
+    const categoryFilter = document.getElementById("categoryFilter");
+    const recentToggle = document.getElementById("recentToggle");
+    const gameCount = document.getElementById("gameCount");
+    const gameGrid = document.querySelector(".grid");
+    const gameCards = Array.from(gameGrid.querySelectorAll(".card"));
+
+    // These are the most recently added arcade entries.
+    const recentlyAddedTitles = new Set([
+      "Poppy Playtime: Chapter 6 — A Better Place",
+      "DELTARUNE Web",
+      "Doki Doki Literature Club! Web",
+      "Minecraft: Story Mode Web",
+      "Minecraft: Story Mode Web — Alternate Port",
+      "Sonic Megamix V5.0 Web",
+      "Sonic.EXE Web",
+      "Sonic The Webhog",
+      "WebSonic",
+      "Minecraft 26.2 Web",
+      "Sonic 1 Forever + Sonic 2 Absolute Web"
+    ]);
+
+    function categoriesFor(title, description) {
+      const text = (title + " " + description).toLowerCase();
+      const categories = [];
+      if (text.includes("sonic")) categories.push("sonic");
+      if (/poppy|bendy|horror|exe|undertale|garten|capuchin|happyhills|doki doki/.test(text)) categories.push("horror");
+      if (/deltarune|undertale|doki doki|story mode|poppy/.test(text)) categories.push("rpg");
+      if (/sonic|mario|cuphead|baldi/.test(text)) categories.push("platformer");
+      if (text.includes("minecraft")) categories.push("minecraft");
+      if (!categories.length) categories.push("other");
+      return categories;
+    }
+
+    gameCards.forEach(card => {
+      const title = card.querySelector("h2")?.textContent.trim() || "";
+      const description = card.querySelector("p")?.textContent.trim() || "";
+      card.dataset.categories = categoriesFor(title, description).join(" ");
+      card.dataset.recent = recentlyAddedTitles.has(title) ? "true" : "false";
+    });
+
+    const noGames = document.createElement("p");
+    noGames.className = "no-games";
+    noGames.textContent = "No games match your search. Try another title or category.";
+    noGames.setAttribute("role", "status");
+    gameGrid.appendChild(noGames);
+
+    function filterGames() {
+      const query = gameSearch.value.trim().toLowerCase();
+      const category = categoryFilter.value;
+      const recentOnly = recentToggle.getAttribute("aria-pressed") === "true";
+      let visible = 0;
+
+      gameCards.forEach(card => {
+        const matchesQuery = card.textContent.toLowerCase().includes(query);
+        const matchesCategory = category === "all" || card.dataset.categories.split(" ").includes(category);
+        const matchesRecent = !recentOnly || card.dataset.recent === "true";
+        const show = matchesQuery && matchesCategory && matchesRecent;
+        card.hidden = !show;
+        if (show) visible++;
+      });
+
+      noGames.style.display = visible ? "none" : "block";
+      gameCount.textContent = visible + " of " + gameCards.length + " games";
+    }
+
+    gameSearch.addEventListener("input", filterGames);
+    categoryFilter.addEventListener("change", filterGames);
+    recentToggle.addEventListener("click", () => {
+      const active = recentToggle.getAttribute("aria-pressed") !== "true";
+      recentToggle.setAttribute("aria-pressed", String(active));
+      filterGames();
+    });
+    filterGames();
+
     const themeToggle = document.getElementById("themeToggle");
 
     function updateThemeButton() {
