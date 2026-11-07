@@ -515,10 +515,100 @@
       flex: 0 1 36%;
       min-height: 190px;
       border-radius: 10px;
+      position: relative;
       background:
-        linear-gradient(90deg, rgba(26,36,29,.05), rgba(16,20,17,.05)),
-        url("https://hedgeplays2.github.io/Poppy-Playtime-Chapter-6-Better-Place/") center/cover no-repeat;
-      opacity: .82;
+        radial-gradient(ellipse at 70% 45%, rgba(118,185,0,.38), transparent 45%),
+        radial-gradient(ellipse at 30% 70%, rgba(72,112,66,.42), transparent 50%),
+        linear-gradient(135deg, #293b2d, #111713 72%);
+      opacity: .95;
+    }
+
+    .featured-art::after {
+      content: "A BETTER PLACE";
+      display: grid;
+      place-items: center;
+      height: 100%;
+      color: rgba(225,245,220,.78);
+      font-size: clamp(1.2rem, 2vw, 2rem);
+      font-weight: 900;
+      letter-spacing: 3px;
+      text-shadow: 0 3px 18px #000;
+    }
+
+    body:not(.dark-mode) {
+      --background: #edf1ed;
+      --text: #1c261e;
+      --header: #ffffff;
+      --card: #ffffff;
+      --secondary-text: #5d6b60;
+      --button: #5f9500;
+      --button-hover: #4d7a00;
+      --shadow: rgba(20,35,20,.10);
+      --label-bg: #e6f1dc;
+      --label-text: #456d1d;
+      background: var(--background);
+      color: var(--text);
+    }
+
+    body:not(.dark-mode) header,
+    body:not(.dark-mode) .sidebar {
+      background: #ffffff;
+      border-color: #d7dfd7;
+    }
+
+    body:not(.dark-mode) header h1,
+    body:not(.dark-mode) .section-title,
+    body:not(.dark-mode) .card h2 {
+      color: #1c261e;
+    }
+
+    body:not(.dark-mode) header .subtitle,
+    body:not(.dark-mode) .section-description,
+    body:not(.dark-mode) .card p {
+      color: #5d6b60;
+    }
+
+    body:not(.dark-mode) .sidebar-link {
+      color: #455448;
+    }
+
+    body:not(.dark-mode) .sidebar-link:hover,
+    body:not(.dark-mode) .sidebar-link.active {
+      background: #e9f2e4;
+      color: #456d1d;
+    }
+
+    body:not(.dark-mode) .featured {
+      background: linear-gradient(110deg, #e1ecd9, #f8fbf7);
+      border-color: #c9d9c5;
+    }
+
+    body:not(.dark-mode) .featured h2 {
+      color: #1c261e;
+    }
+
+    body:not(.dark-mode) .featured p {
+      color: #536355;
+    }
+
+    body:not(.dark-mode) .featured-art {
+      opacity: .75;
+    }
+
+    body:not(.dark-mode) .arcade-tools input,
+    body:not(.dark-mode) .arcade-tools select {
+      background: #fff;
+      color: #1c261e;
+      border-color: #cbd6cc;
+    }
+
+    body:not(.dark-mode) .card {
+      background: #fff;
+      border-color: #dce5dc;
+    }
+
+    body:not(.dark-mode) .credits {
+      border-color: #d7dfd7;
     }
 
     .section-title {
