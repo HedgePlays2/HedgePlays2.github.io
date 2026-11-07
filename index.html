@@ -308,10 +308,443 @@
     @media (max-width: 600px) {
       .game-cover { height: 190px; }
     }
+
+    /* Hedge Web Arcade: Steam-inspired layout with NVIDIA-style green accents */
+    :root {
+      --background: #101411;
+      --text: #edf3ed;
+      --header: #171d19;
+      --card: #1b231e;
+      --secondary-text: #a0afa4;
+      --button: #76b900;
+      --button-hover: #5f9500;
+      --shadow: rgba(0,0,0,0.35);
+      --label-bg: #293a20;
+      --label-text: #b5e477;
+    }
+
+    body, body.dark-mode {
+      --background: #101411;
+      --text: #edf3ed;
+      --header: #171d19;
+      --card: #1b231e;
+      --secondary-text: #a0afa4;
+      --button: #76b900;
+      --button-hover: #5f9500;
+      --shadow: rgba(0,0,0,0.35);
+      --label-bg: #293a20;
+      --label-text: #b5e477;
+      background: var(--background);
+      color: var(--text);
+    }
+
+    header {
+      min-height: 76px;
+      box-sizing: border-box;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 18px;
+      padding: 12px 28px;
+      text-align: left;
+      background: #171d19;
+      border-bottom: 1px solid #2c382f;
+      box-shadow: 0 4px 18px rgba(0,0,0,.22);
+      position: relative;
+      z-index: 5;
+    }
+
+    header .logo {
+      width: 48px;
+      max-width: 48px;
+      height: 48px;
+      object-fit: contain;
+      margin: 0;
+    }
+
+    header h1 {
+      color: #f3f7f3;
+      font-size: 1.55rem;
+      letter-spacing: -.4px;
+    }
+
+    header .subtitle {
+      margin: 3px 0 0;
+      color: #9eaca1;
+      font-size: .88rem;
+    }
+
+    header .theme-toggle {
+      top: 18px;
+      right: 24px;
+      background: #28342b;
+      border: 1px solid #425342;
+      color: #d7e8d4;
+    }
+
+    header .theme-toggle:hover {
+      background: #354737;
+    }
+
+    .sidebar {
+      position: fixed;
+      z-index: 4;
+      top: 77px;
+      bottom: 0;
+      left: 0;
+      width: 218px;
+      box-sizing: border-box;
+      padding: 25px 14px;
+      background: #171d19;
+      border-right: 1px solid #2c382f;
+      overflow-y: auto;
+    }
+
+    .sidebar-heading {
+      margin: 0 12px 12px;
+      color: #78877b;
+      font-size: .72rem;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+    }
+
+    .sidebar-link {
+      display: block;
+      width: 100%;
+      box-sizing: border-box;
+      padding: 11px 12px;
+      margin: 3px 0;
+      border: 0;
+      border-radius: 7px;
+      background: transparent;
+      color: #bdc9bf;
+      text-align: left;
+      text-decoration: none;
+      font: inherit;
+      font-size: .93rem;
+      cursor: pointer;
+    }
+
+    .sidebar-link:hover,
+    .sidebar-link.active {
+      background: #29352b;
+      color: #a9e35b;
+    }
+
+    .sidebar-divider {
+      height: 1px;
+      background: #2c382f;
+      margin: 18px 8px;
+    }
+
+    .sidebar-note {
+      margin: 35px 10px 0;
+      color: #7e927f;
+      font-size: .75rem;
+      font-weight: 800;
+      line-height: 1.8;
+      letter-spacing: 1px;
+    }
+
+    .sidebar-note span {
+      color: #657267;
+      font-size: .62rem;
+      letter-spacing: .7px;
+    }
+
+    .featured {
+      display: flex;
+      align-items: stretch;
+      justify-content: space-between;
+      gap: 24px;
+      min-height: 245px;
+      margin: 28px 34px 28px 252px;
+      padding: 30px;
+      overflow: hidden;
+      border: 1px solid #354538;
+      border-radius: 14px;
+      background: linear-gradient(110deg, #26352a 0%, #1a241d 58%, #111713 100%);
+      box-shadow: 0 12px 32px rgba(0,0,0,.24);
+    }
+
+    .featured-copy {
+      position: relative;
+      z-index: 1;
+      flex: 1 1 55%;
+      align-self: center;
+      max-width: 620px;
+    }
+
+    .featured-kicker {
+      color: #a8df59;
+      font-size: .75rem;
+      font-weight: 800;
+      letter-spacing: 1.8px;
+    }
+
+    .featured h2 {
+      margin: 12px 0 8px;
+      color: #f1f6ef;
+      font-size: clamp(1.6rem, 3vw, 2.5rem);
+      line-height: 1.12;
+    }
+
+    .featured p {
+      color: #b4c0b5;
+      line-height: 1.55;
+    }
+
+    .featured a {
+      display: inline-block;
+      margin-top: 14px;
+      padding: 12px 18px;
+      border-radius: 7px;
+      background: #76b900;
+      color: #10170b;
+      text-decoration: none;
+      font-size: .85rem;
+      font-weight: 900;
+      letter-spacing: .4px;
+    }
+
+    .featured a:hover {
+      background: #91d52b;
+    }
+
+    .featured-art {
+      flex: 0 1 36%;
+      min-height: 190px;
+      border-radius: 10px;
+      background:
+        linear-gradient(90deg, rgba(26,36,29,.05), rgba(16,20,17,.05)),
+        url("https://hedgeplays2.github.io/Poppy-Playtime-Chapter-6-Better-Place/") center/cover no-repeat;
+      opacity: .82;
+    }
+
+    .section-title {
+      margin: 34px 34px 8px 252px;
+      text-align: left;
+      color: #eef5ed;
+      font-size: 1.65rem;
+      letter-spacing: .3px;
+    }
+
+    .section-description {
+      margin: 0 34px 10px 252px;
+      max-width: 900px;
+      text-align: left;
+      color: #9eaca1;
+    }
+
+    .arcade-tools {
+      justify-content: flex-start;
+      max-width: none;
+      margin: 18px 34px 0 252px;
+      padding: 0;
+    }
+
+    .arcade-tools input,
+    .arcade-tools select {
+      border-color: #344238;
+      background: #1a211c;
+      color: #e4ece4;
+    }
+
+    .arcade-tools input:focus,
+    .arcade-tools select:focus {
+      outline: 2px solid #76b900;
+      outline-offset: 1px;
+    }
+
+    .arcade-tools button {
+      background: #76b900;
+      color: #10170b;
+      border-color: #76b900;
+    }
+
+    .arcade-tools button:hover {
+      background: #91d52b;
+    }
+
+    .arcade-tools button[aria-pressed="true"] {
+      background: #91d52b;
+      color: #10170b;
+    }
+
+    .grid {
+      max-width: none;
+      grid-template-columns: repeat(auto-fill, minmax(225px, 1fr));
+      gap: 18px;
+      padding: 22px 34px 42px 252px;
+      margin: 0;
+    }
+
+    .card {
+      padding: 18px;
+      border: 1px solid #2d3a30;
+      border-radius: 10px;
+      background: #1b231e;
+      text-align: left;
+      box-shadow: 0 5px 18px rgba(0,0,0,.18);
+    }
+
+    .card:hover {
+      transform: translateY(-3px);
+      border-color: #638a3d;
+      box-shadow: 0 12px 25px rgba(0,0,0,.3);
+    }
+
+    .card h2 {
+      color: #edf4ed;
+      font-size: 1.12rem;
+      line-height: 1.3;
+    }
+
+    .card p {
+      color: #a3b0a5;
+      line-height: 1.5;
+      font-size: .92rem;
+    }
+
+    .card .game-cover {
+      width: calc(100% + 36px);
+      height: 150px;
+      margin: -18px -18px 16px;
+      border-radius: 10px 10px 0 0;
+    }
+
+    .creator-label {
+      background: #293a20;
+      color: #b5e477;
+      font-size: .75rem;
+    }
+
+    .card a:not(.report-link) {
+      background: #76b900;
+      color: #10170b;
+      border-radius: 6px;
+      padding: 9px 14px;
+      font-size: .85rem;
+    }
+
+    .card a:not(.report-link):hover {
+      background: #91d52b;
+    }
+
+    .card a.report-link {
+      color: #9eaca1;
+      font-size: .82rem;
+    }
+
+    .card a.report-link:hover {
+      color: #a9e35b;
+    }
+
+    .credits {
+      margin: 30px 34px 30px 252px;
+      max-width: 950px;
+      text-align: left;
+      border-top: 1px solid #2c382f;
+    }
+
+    footer {
+      margin-left: 218px;
+      color: #748176;
+      border-top: 1px solid #273329;
+    }
+
+    @media (max-width: 800px) {
+      .sidebar {
+        position: static;
+        width: auto;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 4px;
+        padding: 10px 14px;
+        border-right: 0;
+        border-bottom: 1px solid #2c382f;
+      }
+
+      .sidebar-heading,
+      .sidebar-divider,
+      .sidebar-note {
+        display: none;
+      }
+
+      .sidebar-link {
+        width: auto;
+        padding: 8px 10px;
+        font-size: .82rem;
+      }
+
+      .featured,
+      .section-title,
+      .section-description,
+      .arcade-tools,
+      .credits {
+        margin-left: 18px;
+        margin-right: 18px;
+      }
+
+      .featured {
+        padding: 22px;
+      }
+
+      .featured-art {
+        display: none;
+      }
+
+      .grid {
+        padding: 20px 18px 36px;
+        grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+      }
+
+      footer {
+        margin-left: 0;
+      }
+    }
+
+    @media (max-width: 520px) {
+      header {
+        padding: 14px 16px;
+        gap: 10px;
+      }
+
+      header .logo {
+        width: 40px;
+        height: 40px;
+      }
+
+      header h1 {
+        font-size: 1.1rem;
+      }
+
+      header .subtitle {
+        display: none;
+      }
+
+      header .theme-toggle {
+        position: static;
+        margin-left: auto;
+        padding: 8px 10px;
+        font-size: .78rem;
+      }
+
+      .featured {
+        margin-top: 18px;
+        min-height: 0;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
   </style>
 </head>
 
-<body>
+<body class="dark-mode">
 
   <header>
     <button class="theme-toggle" id="themeToggle">🌙 Dark Mode</button>
@@ -326,8 +759,33 @@
   </header>
 
 
+  <aside class="sidebar" aria-label="Arcade navigation">
+    <p class="sidebar-heading">BROWSE</p>
+    <a class="sidebar-link active" href="#library">🎮 All Games</a>
+    <button class="sidebar-link" type="button" data-category="sonic">🦔 Sonic</button>
+    <button class="sidebar-link" type="button" data-category="horror">👻 Horror</button>
+    <button class="sidebar-link" type="button" data-category="rpg">📖 RPG & Story</button>
+    <button class="sidebar-link" type="button" data-category="platformer">🕹️ Platformers</button>
+    <button class="sidebar-link" type="button" data-category="minecraft">⛏️ Minecraft</button>
+    <button class="sidebar-link" type="button" data-category="other">✨ Other</button>
+    <div class="sidebar-divider"></div>
+    <a class="sidebar-link" href="#credits">ℹ️ Credits</a>
+    <a class="sidebar-link" href="https://github.com/HedgePlays2/HedgePlays2.github.io/issues">🛠️ Report a Problem</a>
+    <div class="sidebar-note">HEDGE WEB ARCADE<br><span>PLAY • DISCOVER • REPEAT</span></div>
+  </aside>
+
+  <section class="featured">
+    <div class="featured-copy">
+      <span class="featured-kicker">FEATURED FAN PROJECT</span>
+      <h2>Poppy Playtime: Chapter 6 — A Better Place</h2>
+      <p>Explore the Data Center, uncover the story, and survive what waits below.</p>
+      <a href="https://hedgeplays2.github.io/Poppy-Playtime-Chapter-6-Better-Place/">▶ PLAY FEATURED GAME</a>
+    </div>
+    <div class="featured-art" role="img" aria-label="Poppy Playtime Chapter 6 featured game artwork"></div>
+  </section>
+
   <!-- Hedge Web Arcade -->
-  <h2 class="section-title">🎮 Hedge Web Arcade</h2>
+  <h2 class="section-title" id="library">YOUR GAME LIBRARY</h2>
 
   <p class="section-description">
     A collection of web ports and browser games. Some projects are made or
@@ -718,7 +1176,7 @@
 
 
   <!-- Credits -->
-  <section class="credits">
+  <section class="credits" id="credits">
     <h2>Credits & Ownership</h2>
 
     <p>
@@ -783,6 +1241,7 @@
 
   <script>
     const gameSearch = document.getElementById("gameSearch");
+
     const categoryFilter = document.getElementById("categoryFilter");
     const recentToggle = document.getElementById("recentToggle");
     const gameCount = document.getElementById("gameCount");
@@ -848,6 +1307,23 @@
       gameCount.textContent = visible + " of " + gameCards.length + " games";
     }
 
+    document.querySelectorAll(".sidebar-link[data-category]").forEach(link => {
+      link.addEventListener("click", () => {
+        categoryFilter.value = link.dataset.category;
+        document.querySelectorAll(".sidebar-link[data-category]").forEach(item => item.classList.remove("active"));
+        link.classList.add("active");
+        filterGames();
+        document.getElementById("library").scrollIntoView({ behavior: "smooth" });
+      });
+    });
+
+    document.querySelector('.sidebar-link[href="#library"]').addEventListener("click", () => {
+      categoryFilter.value = "all";
+      document.querySelectorAll(".sidebar-link[data-category]").forEach(item => item.classList.remove("active"));
+      document.querySelector('.sidebar-link[href="#library"]').classList.add("active");
+      filterGames();
+    });
+
     gameSearch.addEventListener("input", filterGames);
     categoryFilter.addEventListener("change", filterGames);
     recentToggle.addEventListener("click", () => {
@@ -867,7 +1343,9 @@
       }
     }
 
-    if (localStorage.getItem("hedgeTheme") === "dark") {
+    if (localStorage.getItem("hedgeTheme") === "light") {
+      document.body.classList.remove("dark-mode");
+    } else {
       document.body.classList.add("dark-mode");
     }
 
