@@ -184,6 +184,16 @@
       box-shadow: 0 8px 20px var(--shadow);
     }
 
+    .card-image {
+      display: block;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+      border-radius: 9px;
+      margin: 0 0 16px;
+      background: #111713;
+    }
+
     .card h2 {
       margin: 0;
       font-size: 1.4rem;
@@ -901,6 +911,7 @@
   <div class="grid">
 
     <div class="card">
+      <img class="card-image" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20640%20360%22%3E%0A%3Cdefs%3E%3ClinearGradient%20id%3D%22bg%22%20x2%3D%221%22%20y2%3D%221%22%3E%3Cstop%20stop-color%3D%22%2317251f%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23050908%22%2F%3E%3C%2FlinearGradient%3E%3ClinearGradient%20id%3D%22gold%22%20x2%3D%22.8%22%20y2%3D%221%22%3E%3Cstop%20stop-color%3D%22%23fff36b%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23d89b00%22%2F%3E%3C%2FlinearGradient%3E%3Cfilter%20id%3D%22glow%22%3E%3CfeGaussianBlur%20stdDeviation%3D%2212%22%2F%3E%3C%2Ffilter%3E%3C%2Fdefs%3E%0A%3Crect%20width%3D%22640%22%20height%3D%22360%22%20fill%3D%22url(%23bg)%22%2F%3E%0A%3Cg%20opacity%3D%22.55%22%20stroke%3D%22%23476451%22%20stroke-width%3D%225%22%20fill%3D%22none%22%3E%3Cpath%20d%3D%22M30%200v360M90%200v360M550%200v360M610%200v360%22%2F%3E%3Cpath%20d%3D%22M0%2070h640M0%20145h640M0%20220h640M0%20295h640%22%2F%3E%3C%2Fg%3E%0A%3Cg%20opacity%3D%22.55%22%20fill%3D%22%23263a2d%22%3E%3Crect%20x%3D%2235%22%20y%3D%2285%22%20width%3D%2290%22%20height%3D%22230%22%20rx%3D%225%22%2F%3E%3Crect%20x%3D%22515%22%20y%3D%2265%22%20width%3D%2290%22%20height%3D%22250%22%20rx%3D%225%22%2F%3E%3C%2Fg%3E%0A%3Ccircle%20cx%3D%22320%22%20cy%3D%22180%22%20r%3D%22120%22%20fill%3D%22%23d8a900%22%20opacity%3D%22.22%22%20filter%3D%22url(%23glow)%22%2F%3E%0A%3Cpath%20d%3D%22M320%2048%20C344%2048%20352%20104%20380%20113%20C408%20122%20459%2099%20472%20122%20C485%20145%20446%20181%20451%20210%20C456%20239%20500%20275%20483%20296%20C466%20317%20414%20288%20387%20302%20C360%20316%20344%20367%20320%20367%20C296%20367%20280%20316%20253%20302%20C226%20288%20174%20317%20157%20296%20C140%20275%20184%20239%20189%20210%20C194%20181%20155%20145%20168%20122%20C181%2099%20232%20122%20260%20113%20C288%20104%20296%2048%20320%2048Z%22%20fill%3D%22url(%23gold)%22%20stroke%3D%22%23fff4ad%22%20stroke-width%3D%228%22%20stroke-linejoin%3D%22round%22%2F%3E%0A%3Crect%20x%3D%22246%22%20y%3D%22128%22%20width%3D%22148%22%20height%3D%22108%22%20rx%3D%2242%22%20fill%3D%22%23101317%22%20stroke%3D%22%23fff%22%20stroke-width%3D%2210%22%2F%3E%0A%3Ccircle%20cx%3D%22291%22%20cy%3D%22169%22%20r%3D%2210%22%20fill%3D%22%23fff%22%2F%3E%3Ccircle%20cx%3D%22349%22%20cy%3D%22169%22%20r%3D%2210%22%20fill%3D%22%23fff%22%2F%3E%3Cpath%20d%3D%22M292%20204%20Q320%20224%20348%20204%22%20fill%3D%22none%22%20stroke%3D%22%23fff%22%20stroke-width%3D%227%22%20stroke-linecap%3D%22round%22%2F%3E%0A%3Cpath%20d%3D%22M320%2050V24%22%20stroke%3D%22%23f7d84b%22%20stroke-width%3D%2212%22%20stroke-linecap%3D%22round%22%2F%3E%3Ccircle%20cx%3D%22320%22%20cy%3D%2218%22%20r%3D%2213%22%20fill%3D%22%23fff%22%2F%3E%0A%3Cpath%20d%3D%22M375%20255l18%2031-36-2Z%22%20fill%3D%22%23f08aaa%22%20stroke%3D%22%23fff%22%20stroke-width%3D%224%22%2F%3E%3Ccircle%20cx%3D%22417%22%20cy%3D%22267%22%20r%3D%2216%22%20fill%3D%22%237ed957%22%20stroke%3D%22%23fff%22%20stroke-width%3D%224%22%2F%3E%0A%3Ctext%20x%3D%2232%22%20y%3D%22334%22%20fill%3D%22%23dce9d8%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2222%22%20font-weight%3D%22700%22%20letter-spacing%3D%224%22%3EA%20BETTER%20PLACE%3C%2Ftext%3E%0A%3C%2Fsvg%3E" alt="Glowby, the yellow star-shaped GrabPack companion, in a dark Data Center" loading="lazy" referrerpolicy="no-referrer">
       <h2>Poppy Playtime: Chapter 6 — A Better Place</h2>
       <p>A fan-made Chapter 6 continuation by Hedge. Explore the Data Center, uncover the story, and survive what waits below.</p>
       <span class="creator-label">Hedge Project · Fan-Made</span>
@@ -1201,6 +1212,7 @@
     </div>
 
     <div class="card">
+      <img class="card-image" src="https://i1.sndcdn.com/artworks-BSuusjvdEz6PCSVI-8zLDCQ-t1080x1080.jpg" alt="Sonic the Hedgehog Megamix cover artwork" loading="lazy" referrerpolicy="no-referrer">
       <h2>Sonic Megamix V5.0 Web</h2>
       <p>Play the Sonic Megamix V5.0 web port hosted on Hedge's GitHub Pages.</p>
       <span class="creator-label">Community Project · Hosted by Hedge</span>
@@ -1211,6 +1223,7 @@
     </div>
 
     <div class="card">
+      <img class="card-image" src="https://assets.gamepur.com/wp-content/uploads/2022/07/25100058/SonicEXE.jpg" alt="Sonic.EXE horror title screen artwork" loading="lazy" referrerpolicy="no-referrer">
       <h2>Sonic.EXE Web</h2>
       <p>A browser version of Sonic.EXE hosted by Hedge.</p>
       <span class="creator-label">Community Project · Hosted by Hedge</span>
@@ -1222,6 +1235,7 @@
     </div>
 
     <div class="card">
+      <img class="card-image" src="https://raw.githubusercontent.com/HedgePlays2/SonicWebHog/master/sprites/title.png" alt="Sonic The Webhog original title screen" loading="lazy" referrerpolicy="no-referrer">
       <h2>Sonic The Webhog</h2>
       <p>A third-party 2D Sonic browser game hosted by Hedge.</p>
       <span class="creator-label">Third-Party Game · Not Made by Hedge</span>
@@ -1233,6 +1247,7 @@
     </div>
 
     <div class="card">
+      <img class="card-image" src="https://raw.githubusercontent.com/HedgePlays2/WebSonic/master/texture/sonic.jpg" alt="Sonic texture from the WebSonic 3D engine" loading="lazy" referrerpolicy="no-referrer">
       <h2>WebSonic</h2>
       <p>A browser-based WebGL Sonic engine project hosted by Hedge.</p>
       <span class="creator-label">Third-Party Engine · Hosted by Hedge</span>
