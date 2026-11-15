@@ -1271,6 +1271,172 @@
       .game-count { text-align: center; }
     }
 
+  
+    /* STEAM x NVIDIA POLISH */
+    :root {
+      --arcade-bg: #0b1118;
+      --arcade-panel: #121b24;
+      --arcade-card: #18232d;
+      --arcade-line: #2b3a45;
+      --arcade-lime: #76b900;
+      --arcade-lime-bright: #8bd52a;
+      --arcade-muted: #a9b7c3;
+    }
+
+    body.dark-mode {
+      background:
+        radial-gradient(ellipse at 82% 0%, rgba(118,185,0,.12), transparent 36rem),
+        linear-gradient(135deg, #0b1118, #101b22 58%, #0b1118);
+    }
+
+    header {
+      background: rgba(15, 24, 32, .96);
+      border-bottom: 1px solid #263844;
+      box-shadow: 0 5px 24px rgba(0,0,0,.35);
+    }
+
+    .sidebar {
+      background: #111b24;
+      border-right-color: #263844;
+    }
+
+    .sidebar-link:hover,
+    .sidebar-link.active {
+      background: linear-gradient(90deg, rgba(118,185,0,.19), rgba(118,185,0,.05));
+      color: #9be447;
+      box-shadow: inset 3px 0 #76b900;
+    }
+
+    .featured {
+      position: relative;
+      border: 1px solid #354b3a;
+      background:
+        linear-gradient(100deg, rgba(10,17,22,.97) 0%, rgba(14,28,23,.90) 54%, rgba(18,34,28,.58) 100%),
+        linear-gradient(135deg, #243d2a, #15232c);
+      box-shadow: 0 18px 45px rgba(0,0,0,.34);
+    }
+
+    .featured::before {
+      content: "";
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 4px;
+      background: #76b900;
+      box-shadow: 0 0 24px rgba(118,185,0,.55);
+    }
+
+    .featured-kicker { color: #8bd52a; }
+    .featured a {
+      background: #76b900;
+      color: #10170b;
+      box-shadow: 0 5px 18px rgba(118,185,0,.22);
+    }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .section-title::after {
+      content: "";
+      height: 1px;
+      flex: 1;
+      background: linear-gradient(90deg, #35483a, transparent);
+    }
+
+    .arcade-tools input,
+    .arcade-tools select {
+      background: #121d26;
+      border-color: #30424d;
+      border-radius: 5px;
+    }
+    .arcade-tools button {
+      background: #76b900;
+      border-color: #76b900;
+      border-radius: 5px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .45px;
+    }
+
+    .grid {
+      grid-template-columns: repeat(auto-fill, minmax(235px, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(160deg, #1b2933, #141f28 72%);
+      border: 1px solid #2b3d48;
+      border-radius: 7px;
+      box-shadow: 0 7px 20px rgba(0,0,0,.24);
+      transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease;
+    }
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: #76b900;
+      box-shadow: 0 12px 28px rgba(0,0,0,.38), 0 0 0 1px rgba(118,185,0,.12);
+    }
+
+    .card .game-cover {
+      height: 158px;
+      filter: saturate(1.06);
+      transition: filter .2s ease, transform .25s ease;
+    }
+    .card:hover .game-cover { filter: saturate(1.18) brightness(1.06); }
+
+    .card h2 { color: #f0f4f6; }
+    .card p { color: #a9b7c3; }
+    .creator-label {
+      background: rgba(118,185,0,.13);
+      color: #a6e45e;
+      border: 1px solid rgba(118,185,0,.18);
+      border-radius: 4px;
+    }
+
+    .card a:not(.report-link) {
+      background: #76b900;
+      color: #10170b;
+      border-radius: 4px;
+      font-weight: 850;
+      text-transform: uppercase;
+      letter-spacing: .35px;
+    }
+    .card a:not(.report-link):hover { background: #8bd52a; }
+
+    .status {
+      background: #263642;
+      border: 1px solid #3b505d;
+    }
+
+    body:not(.dark-mode) {
+      --arcade-bg: #edf2ed;
+      --arcade-panel: #f7faf7;
+      --arcade-card: #ffffff;
+      --arcade-line: #d4dfd5;
+      --arcade-lime: #568b12;
+      --arcade-lime-bright: #47780e;
+      --arcade-muted: #59695e;
+      background: #edf2ed;
+    }
+    body:not(.dark-mode) header,
+    body:not(.dark-mode) .sidebar { background: #f8fbf8; }
+    body:not(.dark-mode) .featured {
+      background: linear-gradient(110deg, #e2eddd, #f7faf7);
+      border-color: #cbdcc6;
+    }
+    body:not(.dark-mode) .card {
+      background: linear-gradient(160deg, #fff, #f4f8f3);
+      border-color: #d5e0d5;
+    }
+    body:not(.dark-mode) .card h2 { color: #1b2a20; }
+    body:not(.dark-mode) .card p { color: #58695d; }
+
+    @media (max-width: 800px) {
+      .card .game-cover { height: 170px; }
+    }
+
   </style>
 </head>
 
