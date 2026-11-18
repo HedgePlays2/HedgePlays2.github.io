@@ -145,6 +145,19 @@
       outline-offset: 2px;
     }
 
+    .library-view-button {
+      min-height: 42px; border: 1px solid #425342; border-radius: 8px;
+      padding: 9px 13px; background: #202a22; color: #dce9dc;
+      font: inherit; font-weight: 600; cursor: pointer;
+      transition: background .2s, border-color .2s, transform .2s;
+    }
+    .library-view-button:hover { background: #2b3b2c; border-color: #76b900; transform: translateY(-1px); }
+    .library-view-button[aria-pressed="true"] { background: #30451f; border-color: #76b900; color: #c8f28b; box-shadow: 0 0 0 1px rgba(118,185,0,.22); }
+    .card-library-actions { display: flex; justify-content: center; margin-top: 12px; }
+    .favorite-button { border: 1px solid #52614f; border-radius: 7px; padding: 7px 11px; background: #202a22; color: #dce9dc; font: inherit; font-size: .9rem; font-weight: 600; cursor: pointer; }
+    .favorite-button[aria-pressed="true"] { color: #d8f59c; border-color: #76b900; background: #30451f; }
+    .favorite-button:focus-visible, .library-view-button:focus-visible { outline: 2px solid #a6e34a; outline-offset: 2px; }
+
     .game-count {
       flex-basis: 100%;
       margin: 0;
@@ -1419,6 +1432,8 @@
       <option value="other">Other</option>
     </select>
     <button type="button" id="recentToggle" aria-pressed="false">✨ Recently Added</button>
+    <button type="button" class="library-view-button" id="favoritesView" aria-pressed="false">★ Favorites</button>
+    <button type="button" class="library-view-button" id="playedView" aria-pressed="false">🕘 Recently Played</button>
     <p id="gameCount" class="game-count" aria-live="polite"></p>
   </section>
 
@@ -1873,6 +1888,22 @@
     const gameGrid = document.querySelector(".grid");
     const gameCards = Array.from(gameGrid.querySelectorAll(".card"));
 
+    // Personal library data is saved locally in this browser; no account is needed.
+    const FAVORITES_KEY = "hedgeArcadeFavorites";
+    const PLAYED_KEY = "hedgeArcadeRecentlyPlayed";
+    function readLibraryList(key) {
+      try {
+        const value = JSON.parse(localStorage.getItem(key) || "[]");
+        return Array.isArray(value) ? value.filter(item => typeof item === "string") : [];
+      } catch (error) { return []; }
+    }
+    function saveLibraryList(key, items) {
+      try { localStorage.setItem(key, JSON.stringify(items)); } catch (error) {}
+    }
+    let favoriteGames = new Set(readLibraryList(FAVORITES_KEY));
+    let recentlyPlayed = readLibraryList(PLAYED_KEY);
+    let libraryView = "all";
+
     // These are the most recently added arcade entries.
     const recentlyAddedTitles = new Set([
       "Poppy Playtime: Chapter 6 — A Better Place",
@@ -1978,13 +2009,46 @@
     gameCards.forEach(card => {
       const title = card.querySelector("h2")?.textContent.trim() || "";
       const description = card.querySelector("p")?.textContent.trim() || "";
+      card.dataset.gameTitle = title;
       card.dataset.categories = categoriesFor(title, description).join(" ");
       card.dataset.recent = recentlyAddedTitles.has(title) ? "true" : "false";
+
+      const actions = document.createElement("div");
+      actions.className = "card-library-actions";
+      const favoriteButton = document.createElement("button");
+      favoriteButton.type = "button";
+      favoriteButton.className = "favorite-button";
+      function updateFavoriteButton() {
+        const active = favoriteGames.has(title);
+        favoriteButton.setAttribute("aria-pressed", String(active));
+        favoriteButton.textContent = active ? "★ Favorited" : "☆ Add to Favorites";
+        favoriteButton.setAttribute("aria-label", (active ? "Remove " : "Add ") + title + (active ? " from" : " to") + " favorites");
+      }
+      updateFavoriteButton();
+      favoriteButton.addEventListener("click", () => {
+        if (favoriteGames.has(title)) favoriteGames.delete(title);
+        else favoriteGames.add(title);
+        saveLibraryList(FAVORITES_KEY, Array.from(favoriteGames));
+        updateFavoriteButton();
+        filterGames();
+      });
+      actions.appendChild(favoriteButton);
+      card.appendChild(actions);
+
+      const playLink = Array.from(card.querySelectorAll("a")).find(link =>
+        !link.classList.contains("report-link") && /play|launch|open/i.test(link.textContent)
+      );
+      if (playLink) {
+        playLink.addEventListener("click", () => {
+          recentlyPlayed = [title, ...recentlyPlayed.filter(item => item !== title)].slice(0, 30);
+          saveLibraryList(PLAYED_KEY, recentlyPlayed);
+        });
+      }
     });
 
     const noGames = document.createElement("p");
     noGames.className = "no-games";
-    noGames.textContent = "No games match your search. Try another title or category.";
+    noGames.textContent = "No games match this view. Try another search or explore the full library.";
     noGames.setAttribute("role", "status");
     gameGrid.appendChild(noGames);
 
@@ -1995,10 +2059,14 @@
       let visible = 0;
 
       gameCards.forEach(card => {
+        const title = card.dataset.gameTitle || "";
         const matchesQuery = card.textContent.toLowerCase().includes(query);
         const matchesCategory = category === "all" || card.dataset.categories.split(" ").includes(category);
         const matchesRecent = !recentOnly || card.dataset.recent === "true";
-        const show = matchesQuery && matchesCategory && matchesRecent;
+        const matchesLibraryView = libraryView === "all" ||
+          (libraryView === "favorites" && favoriteGames.has(title)) ||
+          (libraryView === "played" && recentlyPlayed.includes(title));
+        const show = matchesQuery && matchesCategory && matchesRecent && matchesLibraryView;
         card.hidden = !show;
         if (show) visible++;
       });
@@ -2031,6 +2099,17 @@
       recentToggle.setAttribute("aria-pressed", String(active));
       filterGames();
     });
+
+    const favoritesView = document.getElementById("favoritesView");
+    const playedView = document.getElementById("playedView");
+    function setLibraryView(view) {
+      libraryView = libraryView === view ? "all" : view;
+      favoritesView.setAttribute("aria-pressed", String(libraryView === "favorites"));
+      playedView.setAttribute("aria-pressed", String(libraryView === "played"));
+      filterGames();
+    }
+    favoritesView.addEventListener("click", () => setLibraryView("favorites"));
+    playedView.addEventListener("click", () => setLibraryView("played"));
     filterGames();
 
     const themeToggle = document.getElementById("themeToggle");
