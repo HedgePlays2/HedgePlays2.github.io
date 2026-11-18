@@ -145,18 +145,10 @@
       outline-offset: 2px;
     }
 
-    .library-view-button {
-      min-height: 42px; border: 1px solid #425342; border-radius: 8px;
-      padding: 9px 13px; background: #202a22; color: #dce9dc;
-      font: inherit; font-weight: 600; cursor: pointer;
-      transition: background .2s, border-color .2s, transform .2s;
-    }
-    .library-view-button:hover { background: #2b3b2c; border-color: #76b900; transform: translateY(-1px); }
-    .library-view-button[aria-pressed="true"] { background: #30451f; border-color: #76b900; color: #c8f28b; box-shadow: 0 0 0 1px rgba(118,185,0,.22); }
     .card-library-actions { display: flex; justify-content: center; margin-top: 12px; }
     .favorite-button { border: 1px solid #52614f; border-radius: 7px; padding: 7px 11px; background: #202a22; color: #dce9dc; font: inherit; font-size: .9rem; font-weight: 600; cursor: pointer; }
     .favorite-button[aria-pressed="true"] { color: #d8f59c; border-color: #76b900; background: #30451f; }
-    .favorite-button:focus-visible, .library-view-button:focus-visible { outline: 2px solid #a6e34a; outline-offset: 2px; }
+    .favorite-button:focus-visible, .library-sidebar-link:focus-visible { outline: 2px solid #a6e34a; outline-offset: 2px; }
 
     .game-count {
       flex-basis: 100%;
@@ -458,6 +450,36 @@
       height: 1px;
       background: #2c382f;
       margin: 18px 8px;
+    }
+
+    .library-sidebar-link {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .library-sidebar-link[aria-pressed="true"] {
+      background: #29352b;
+      color: #a9e35b;
+      box-shadow: inset 3px 0 #76b900;
+    }
+
+    .sidebar-count {
+      min-width: 22px;
+      padding: 2px 6px;
+      border-radius: 12px;
+      background: #29352b;
+      color: #a9e35b;
+      text-align: center;
+      font-size: .72rem;
+      font-weight: 800;
+      font-variant-numeric: tabular-nums;
+    }
+
+    body:not(.dark-mode) .sidebar-count {
+      background: #e9f2e4;
+      color: #456d1d;
     }
 
     .sidebar-note {
@@ -1396,6 +1418,14 @@
     <button class="sidebar-link" type="button" data-category="minecraft">⛏️ Minecraft</button>
     <button class="sidebar-link" type="button" data-category="other">✨ Other</button>
     <div class="sidebar-divider"></div>
+    <p class="sidebar-heading">YOUR LIBRARY</p>
+    <button class="sidebar-link library-sidebar-link" type="button" id="favoritesView" data-library-view="favorites" aria-pressed="false">
+      <span>★ Favorites</span><span class="sidebar-count" id="favoritesCount">0</span>
+    </button>
+    <button class="sidebar-link library-sidebar-link" type="button" id="playedView" data-library-view="played" aria-pressed="false">
+      <span>🕘 Recently Played</span><span class="sidebar-count" id="playedCount">0</span>
+    </button>
+    <div class="sidebar-divider"></div>
     <a class="sidebar-link" href="#credits">ℹ️ Credits</a>
     <a class="sidebar-link" href="https://github.com/HedgePlays2/HedgePlays2.github.io/issues">🛠️ Report a Problem</a>
     <div class="sidebar-note">HEDGE WEB ARCADE<br><span>PLAY • DISCOVER • REPEAT</span></div>
@@ -1432,8 +1462,6 @@
       <option value="other">Other</option>
     </select>
     <button type="button" id="recentToggle" aria-pressed="false">✨ Recently Added</button>
-    <button type="button" class="library-view-button" id="favoritesView" aria-pressed="false">★ Favorites</button>
-    <button type="button" class="library-view-button" id="playedView" aria-pressed="false">🕘 Recently Played</button>
     <p id="gameCount" class="game-count" aria-live="polite"></p>
   </section>
 
@@ -2073,6 +2101,8 @@
 
       noGames.style.display = visible ? "none" : "block";
       gameCount.textContent = visible + " of " + gameCards.length + " games";
+      document.getElementById("favoritesCount").textContent = favoriteGames.size;
+      document.getElementById("playedCount").textContent = recentlyPlayed.length;
     }
 
     document.querySelectorAll(".sidebar-link[data-category]").forEach(link => {
@@ -2100,16 +2130,18 @@
       filterGames();
     });
 
-    const favoritesView = document.getElementById("favoritesView");
-    const playedView = document.getElementById("playedView");
+    const libraryViewButtons = document.querySelectorAll("[data-library-view]");
     function setLibraryView(view) {
       libraryView = libraryView === view ? "all" : view;
-      favoritesView.setAttribute("aria-pressed", String(libraryView === "favorites"));
-      playedView.setAttribute("aria-pressed", String(libraryView === "played"));
+      libraryViewButtons.forEach(button => {
+        button.setAttribute("aria-pressed", String(libraryView === button.dataset.libraryView));
+      });
       filterGames();
+      document.getElementById("library").scrollIntoView({ behavior: "smooth", block: "start" });
     }
-    favoritesView.addEventListener("click", () => setLibraryView("favorites"));
-    playedView.addEventListener("click", () => setLibraryView("played"));
+    libraryViewButtons.forEach(button => {
+      button.addEventListener("click", () => setLibraryView(button.dataset.libraryView));
+    });
     filterGames();
 
     const themeToggle = document.getElementById("themeToggle");
