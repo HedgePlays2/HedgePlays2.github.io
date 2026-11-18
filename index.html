@@ -842,6 +842,90 @@
     }
 
   
+
+    /* Content advisory labels */
+    .content-warnings {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 12px;
+    }
+
+    .content-warning {
+      display: inline-flex;
+      align-items: center;
+      padding: 5px 8px;
+      border: 1px solid #8b6334;
+      border-radius: 5px;
+      background: #352719;
+      color: #ffd28a;
+      font-size: .72rem;
+      font-weight: 800;
+      letter-spacing: .2px;
+    }
+
+    body:not(.dark-mode) .content-warning {
+      background: #fff2df;
+      border-color: #d8a45e;
+      color: #80501b;
+    }
+
+    #contentWarningDialog {
+      width: min(440px, calc(100% - 48px));
+      padding: 26px;
+      border: 1px solid #8b6334;
+      border-radius: 12px;
+      background: #171d19;
+      color: #edf3ed;
+      box-shadow: 0 20px 70px rgba(0,0,0,.65);
+    }
+
+    #contentWarningDialog::backdrop {
+      background: rgba(0,0,0,.78);
+      backdrop-filter: blur(3px);
+    }
+
+    #contentWarningDialog h2 {
+      margin: 0 0 10px;
+      color: #ffd28a;
+      font-size: 1.35rem;
+    }
+
+    #contentWarningDialog p {
+      color: #c0cbbf;
+      line-height: 1.55;
+    }
+
+    .warning-actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .warning-actions button {
+      border: 1px solid #52634f;
+      border-radius: 6px;
+      padding: 10px 14px;
+      background: #29352b;
+      color: #edf3ed;
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .warning-actions button.primary {
+      border-color: #a5ed55;
+      background: #a5ed55;
+      color: #14200e;
+    }
+
+    .warning-actions button:focus-visible {
+      outline: 3px solid #c2ff70;
+      outline-offset: 3px;
+    }
+
     /* HEDGE ARCADE VISUAL REFRESH — 2026 */
     :root {
       color-scheme: dark;
@@ -1713,6 +1797,16 @@
   </div>
 
 
+
+  <dialog id="contentWarningDialog" aria-labelledby="contentWarningTitle" aria-describedby="contentWarningMessage">
+    <h2 id="contentWarningTitle">Content warning</h2>
+    <p id="contentWarningMessage"></p>
+    <div class="warning-actions">
+      <button type="button" id="cancelWarning">Go Back</button>
+      <button type="button" class="primary" id="continueWarning">Continue to Game</button>
+    </div>
+  </dialog>
+
   <!-- Credits -->
   <section class="credits" id="credits">
     <h2>Credits & Ownership</h2>
@@ -1804,6 +1898,81 @@
       "Sonic 1 Forever + Sonic 2 Absolute Web",
       "Sonic Triple Trouble 16-bit Web"
     ]);
+
+
+    // Content notes are shown only for games with known content that may surprise players.
+    const contentAdvisories = {
+      "Poppy Playtime: Chapter 6 — A Better Place": ["Horror", "Jump scares", "Violence"],
+      "Bendy and the Ink Machine Web": ["Horror", "Jump scares", "Violence"],
+      "DELTARUNE Fight Simulator": ["Fantasy violence", "Dark themes"],
+      "DELTARUNE Chapters 1–4 Web": ["Fantasy violence", "Dark themes"],
+      "DELTARUNE Web": ["Fantasy violence", "Dark themes"],
+      "UNDERTALE Web": ["Fantasy violence", "Dark themes"],
+      "Cuphead Web": ["Cartoon violence", "Boss combat"],
+      "Baldi's Basics Plus Web": ["Horror", "Jump scares"],
+      "Capuchin Web": ["Horror", "Jump scares"],
+      "Happyhills Homicide 1": ["Horror", "Graphic violence"],
+      "Garten of Banban 1": ["Horror", "Jump scares"],
+      "Doki Doki Literature Club! Web": ["Psychological horror", "Disturbing themes"],
+      "Sonic.EXE Web": ["Horror", "Disturbing imagery"]
+    };
+
+    const strongContentWarnings = new Set([
+      "Happyhills Homicide 1",
+      "Doki Doki Literature Club! Web",
+      "Sonic.EXE Web"
+    ]);
+
+    const warningDialog = document.getElementById("contentWarningDialog");
+    const warningMessage = document.getElementById("contentWarningMessage");
+    let pendingWarningLink = null;
+
+    document.getElementById("cancelWarning").addEventListener("click", () => {
+      warningDialog.close();
+      pendingWarningLink = null;
+    });
+
+    document.getElementById("continueWarning").addEventListener("click", () => {
+      if (!pendingWarningLink) return;
+      const destination = pendingWarningLink.href;
+      const opensNewTab = pendingWarningLink.target === "_blank";
+      warningDialog.close();
+      pendingWarningLink = null;
+      if (opensNewTab) window.open(destination, "_blank", "noopener,noreferrer");
+      else window.location.assign(destination);
+    });
+
+    gameGrid.querySelectorAll(".card").forEach(card => {
+      const title = card.querySelector("h2")?.textContent.trim() || "";
+      const advisories = contentAdvisories[title];
+      if (!advisories) return;
+
+      const labels = document.createElement("div");
+      labels.className = "content-warnings";
+      labels.setAttribute("aria-label", "Content advisories");
+      advisories.forEach(advisory => {
+        const label = document.createElement("span");
+        label.className = "content-warning";
+        label.textContent = "⚠ " + advisory;
+        labels.appendChild(label);
+      });
+
+      const creatorLabel = card.querySelector(".creator-label");
+      if (creatorLabel) creatorLabel.insertAdjacentElement("afterend", labels);
+      else card.querySelector("h2")?.insertAdjacentElement("afterend", labels);
+
+      if (strongContentWarnings.has(title)) {
+        card.querySelectorAll('a:not(.report-link)').forEach(link => {
+          link.addEventListener("click", event => {
+            event.preventDefault();
+            pendingWarningLink = link;
+            warningMessage.textContent = title + " contains " + advisories.join(", ").toLowerCase() +
+              ". Please make sure you're comfortable with these themes before continuing.";
+            warningDialog.showModal();
+          });
+        });
+      }
+    });
 
     function categoriesFor(title, description) {
       const text = (title + " " + description).toLowerCase();
