@@ -1384,6 +1384,27 @@
       .game-count { text-align: center; }
     }
 
+
+    /* Trending games: based on launches in this browser, not global analytics. */
+    .trending-section { margin: 24px 34px 34px 252px; padding: 22px; border: 1px solid #344536; border-radius: 13px; background: linear-gradient(120deg, rgba(118,185,0,.10), rgba(24,34,26,.72)); }
+    .trending-heading { display:flex; align-items:center; gap:10px; margin:0 0 6px; color:#edf5e9; font-size:1.3rem; }
+    .trending-subtitle { margin:0 0 16px; color:#9eaca1; font-size:.88rem; }
+    .trending-list { display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:12px; }
+    .trending-item { display:flex; align-items:center; gap:11px; min-width:0; padding:10px; border:1px solid #354638; border-radius:9px; background:rgba(13,20,15,.58); }
+    .trending-item img { width:76px; height:54px; flex:0 0 76px; object-fit:cover; border-radius:6px; background:#111; }
+    .trending-item-copy { min-width:0; flex:1; }
+    .trending-item-title { display:block; overflow:hidden; color:#edf5e9; font-size:.86rem; font-weight:800; text-overflow:ellipsis; white-space:nowrap; }
+    .trending-item-count { display:block; margin-top:4px; color:#a9c39d; font-size:.72rem; }
+    .trending-item button { margin-top:7px; padding:5px 9px; border:1px solid #76b900; border-radius:5px; background:#76b900; color:#11190c; font:inherit; font-size:.72rem; font-weight:800; cursor:pointer; }
+    .trending-empty { margin:0; padding:15px; border:1px dashed #50614e; border-radius:8px; color:#aebcaf; font-size:.9rem; }
+    body:not(.dark-mode) .trending-section { background:linear-gradient(120deg,#e8f2e1,#f8fbf6); border-color:#cadbc4; }
+    body:not(.dark-mode) .trending-heading,.trending-item-title { color:#1d2b1e; }
+    body:not(.dark-mode) .trending-subtitle,.trending-empty { color:#586957; }
+    body:not(.dark-mode) .trending-item { background:rgba(255,255,255,.8); border-color:#d1dfcc; }
+    body:not(.dark-mode) .trending-item-count { color:#567348; }
+    @media (max-width:800px) { .trending-section { margin:22px 18px 30px; } }
+    @media (max-width:520px) { .trending-section { padding:16px; } .trending-list { grid-template-columns:1fr; } }
+
   </style>
 </head>
 
@@ -1444,6 +1465,15 @@
     <div class="featured-art">
       <img id="featuredImage" alt="Featured game artwork" loading="eager">
       <span class="featured-art-caption">FEATURED GAME</span>
+    </div>
+  </section>
+
+
+  <section class="trending-section" aria-labelledby="trendingHeading">
+    <h2 class="trending-heading" id="trendingHeading">🔥 Trending Games</h2>
+    <p class="trending-subtitle">Your most-played games on this device.</p>
+    <div class="trending-list" id="trendingList" aria-live="polite">
+      <p class="trending-empty">Play a few games and your top picks will show up here.</p>
     </div>
   </section>
 
@@ -1944,6 +1974,7 @@
     // Personal library data is saved locally in this browser; no account is needed.
     const FAVORITES_KEY = "hedgeArcadeFavorites";
     const PLAYED_KEY = "hedgeArcadeRecentlyPlayed";
+    const PLAY_COUNTS_KEY = "hedgeArcadePlayCounts";
     function readLibraryList(key) {
       try {
         const value = JSON.parse(localStorage.getItem(key) || "[]");
@@ -1956,6 +1987,62 @@
     let favoriteGames = new Set(readLibraryList(FAVORITES_KEY));
     let recentlyPlayed = readLibraryList(PLAYED_KEY);
     let libraryView = "all";
+    function readPlayCounts() {
+      try {
+        const value = JSON.parse(localStorage.getItem(PLAY_COUNTS_KEY) || "{}");
+        return value && typeof value === "object" && !Array.isArray(value) ? value : {};
+      } catch (error) { return {}; }
+    }
+    let playCounts = readPlayCounts();
+
+    function updateTrendingGames() {
+      const list = document.getElementById("trendingList");
+      if (!list) return;
+      const ranked = gameCards
+        .map(card => ({ card, title: card.dataset.gameTitle || card.querySelector("h2")?.textContent.trim() || "", count: Number(playCounts[card.dataset.gameTitle || ""]) || 0 }))
+        .filter(item => item.count > 0)
+        .sort((a, b) => b.count - a.count || a.title.localeCompare(b.title))
+        .slice(0, 4);
+      list.replaceChildren();
+      if (!ranked.length) {
+        const empty = document.createElement("p");
+        empty.className = "trending-empty";
+        empty.textContent = "Play a few games and your top picks will show up here.";
+        list.appendChild(empty);
+        return;
+      }
+      ranked.forEach(item => {
+        const cover = item.card.querySelector(".card-image, .game-cover");
+        const playLink = Array.from(item.card.querySelectorAll("a")).find(link => !link.classList.contains("report-link") && /play|launch|open/i.test(link.textContent));
+        const tile = document.createElement("div");
+        tile.className = "trending-item";
+        if (cover) {
+          const image = document.createElement("img");
+          image.src = cover.currentSrc || cover.src;
+          image.alt = "";
+          image.loading = "lazy";
+          tile.appendChild(image);
+        }
+        const copy = document.createElement("div");
+        copy.className = "trending-item-copy";
+        const name = document.createElement("span");
+        name.className = "trending-item-title";
+        name.textContent = item.title;
+        const count = document.createElement("span");
+        count.className = "trending-item-count";
+        count.textContent = item.count + (item.count === 1 ? " launch" : " launches");
+        copy.append(name, count);
+        if (playLink) {
+          const button = document.createElement("button");
+          button.type = "button";
+          button.textContent = "Play";
+          button.addEventListener("click", () => playLink.click());
+          copy.appendChild(button);
+        }
+        tile.appendChild(copy);
+        list.appendChild(tile);
+      });
+    }
 
     // These are the most recently added arcade entries.
     const recentlyAddedTitles = new Set([
@@ -2275,9 +2362,14 @@
         playLink.addEventListener("click", () => {
           recentlyPlayed = [title, ...recentlyPlayed.filter(item => item !== title)].slice(0, 30);
           saveLibraryList(PLAYED_KEY, recentlyPlayed);
+          playCounts[title] = (Number(playCounts[title]) || 0) + 1;
+          try { localStorage.setItem(PLAY_COUNTS_KEY, JSON.stringify(playCounts)); } catch (error) {}
+          updateTrendingGames();
         });
       }
     });
+
+    updateTrendingGames();
 
     const noGames = document.createElement("p");
     noGames.className = "no-games";
