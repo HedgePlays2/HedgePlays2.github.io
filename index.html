@@ -498,87 +498,38 @@
     }
 
     .featured {
-      display: flex;
-      align-items: stretch;
-      justify-content: space-between;
-      gap: 24px;
-      min-height: 245px;
-      margin: 28px 34px 28px 252px;
-      padding: 30px;
-      overflow: hidden;
-      border: 1px solid #354538;
-      border-radius: 14px;
-      background: linear-gradient(110deg, #26352a 0%, #1a241d 58%, #111713 100%);
-      box-shadow: 0 12px 32px rgba(0,0,0,.24);
-    }
-
-    .featured-copy {
       position: relative;
-      z-index: 1;
-      flex: 1 1 55%;
-      align-self: center;
-      max-width: 620px;
-    }
-
-    .featured-kicker {
-      color: #a8df59;
-      font-size: .75rem;
-      font-weight: 800;
-      letter-spacing: 1.8px;
-    }
-
-    .featured h2 {
-      margin: 12px 0 8px;
-      color: #f1f6ef;
-      font-size: clamp(1.6rem, 3vw, 2.5rem);
-      line-height: 1.12;
-    }
-
-    .featured p {
-      color: #b4c0b5;
-      line-height: 1.55;
-    }
-
-    .featured a {
-      display: inline-block;
-      margin-top: 14px;
-      padding: 12px 18px;
-      border-radius: 7px;
-      background: #76b900;
-      color: #10170b;
-      text-decoration: none;
-      font-size: .85rem;
-      font-weight: 900;
-      letter-spacing: .4px;
-    }
-
-    .featured a:hover {
-      background: #91d52b;
-    }
-
-    .featured-art {
-      flex: 0 1 36%;
-      min-height: 190px;
-      border-radius: 10px;
-      position: relative;
-      background:
-        radial-gradient(ellipse at 70% 45%, rgba(118,185,0,.38), transparent 45%),
-        radial-gradient(ellipse at 30% 70%, rgba(72,112,66,.42), transparent 50%),
-        linear-gradient(135deg, #293b2d, #111713 72%);
-      opacity: .95;
-    }
-
-    .featured-art::after {
-      content: "A BETTER PLACE";
       display: grid;
-      place-items: center;
-      height: 100%;
-      color: rgba(225,245,220,.78);
-      font-size: clamp(1.2rem, 2vw, 2rem);
-      font-weight: 900;
-      letter-spacing: 3px;
-      text-shadow: 0 3px 18px #000;
+      grid-template-columns: minmax(0, 1.05fr) minmax(300px, .95fr);
+      align-items: stretch;
+      gap: 26px;
+      min-height: 320px;
+      margin: 28px 34px 28px 252px;
+      padding: 34px;
+      overflow: hidden;
+      border: 1px solid #40543d;
+      border-radius: 15px;
+      background: radial-gradient(ellipse at 8% 10%, rgba(118,185,0,.19), transparent 43%), linear-gradient(115deg, #202d23 0%, #151e18 62%, #101611 100%);
+      box-shadow: 0 16px 38px rgba(0,0,0,.3);
     }
+    .featured-copy { position: relative; z-index: 2; align-self: center; max-width: 650px; }
+    .featured-kicker { display: inline-flex; align-items: center; gap: 9px; color: #b7e879; font-size: .72rem; font-weight: 900; letter-spacing: 1.8px; }
+    .featured-live-dot { width: 8px; height: 8px; border-radius: 50%; background: #8bd332; box-shadow: 0 0 12px rgba(139,211,50,.8); }
+    .featured h2 { margin: 16px 0 12px; color: #f4f8f2; font-size: clamp(1.8rem, 3.2vw, 2.8rem); line-height: 1.08; letter-spacing: -.8px; }
+    .featured p { max-width: 560px; color: #bdc9bd; line-height: 1.65; font-size: .98rem; }
+    .featured-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+    .featured-tags span { padding: 6px 9px; border: 1px solid #465746; border-radius: 5px; background: rgba(16,25,17,.55); color: #c8d8c5; font-size: .66rem; font-weight: 900; letter-spacing: .8px; }
+    .featured-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-top: 24px; }
+    .featured .featured-play, .featured-details { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; box-sizing: border-box; margin: 0; padding: 12px 18px; border: 1px solid #76b900; border-radius: 7px; font-size: .82rem; font-weight: 900; letter-spacing: .5px; text-decoration: none; cursor: pointer; }
+    .featured .featured-play { background: #76b900; color: #10170b; }
+    .featured .featured-play:hover { background: #91d52b; }
+    .featured-details { background: rgba(20,29,22,.7); color: #e2efdf; border-color: #526650; }
+    .featured-details:hover { border-color: #91d52b; color: #b9ec78; }
+    .featured-art { position: relative; min-height: 250px; overflow: hidden; border: 1px solid rgba(180,220,150,.22); border-radius: 11px; background: #101713; box-shadow: 0 12px 30px rgba(0,0,0,.32); }
+    .featured-art img { display: block; width: 100%; height: 100%; min-height: 250px; object-fit: cover; opacity: .9; transition: transform .45s ease; }
+    .featured:hover .featured-art img { transform: scale(1.035); }
+    .featured-art::after { content: ""; position: absolute; inset: 35% 0 0; background: linear-gradient(transparent, rgba(8,13,9,.78)); pointer-events: none; }
+    .featured-art-caption { position: absolute; z-index: 1; right: 14px; bottom: 13px; color: #e9f4e5; font-size: .68rem; font-weight: 900; letter-spacing: 1.5px; text-shadow: 0 2px 8px #000; }
 
     body:not(.dark-mode) {
       --background: #edf1ed;
@@ -624,6 +575,14 @@
     }
 
     body:not(.dark-mode) .featured {
+      background: radial-gradient(ellipse at 8% 10%, rgba(118,185,0,.13), transparent 43%), linear-gradient(115deg, #e4eedf, #f7faf5);
+      border-color: #c5d7bd;
+    }
+    body:not(.dark-mode) .featured h2 { color: #1c2a1d; }
+    body:not(.dark-mode) .featured p { color: #536455; }
+    body:not(.dark-mode) .featured-tags span { background: rgba(255,255,255,.7); color: #43583e; border-color: #c4d2bf; }
+    body:not(.dark-mode) .featured-details { background: rgba(255,255,255,.7); color: #334532; border-color: #b9c9b3; }
+
       background: linear-gradient(110deg, #e1ecd9, #f8fbf7);
       border-color: #c9d9c5;
     }
@@ -826,9 +785,9 @@
         padding: 22px;
       }
 
-      .featured-art {
-        display: none;
-      }
+      .featured { grid-template-columns: 1fr; gap: 20px; }
+      .featured-art { min-height: 190px; }
+      .featured-art img { min-height: 190px; max-height: 230px; }
 
       .grid {
         padding: 20px 18px 36px;
@@ -1468,14 +1427,21 @@
     <div class="sidebar-note">HEDGE WEB ARCADE<br><span>PLAY • DISCOVER • REPEAT</span></div>
   </aside>
 
-  <section class="featured">
+  <section class="featured" aria-labelledby="featuredTitle">
     <div class="featured-copy">
-      <span class="featured-kicker">FEATURED FAN PROJECT</span>
-      <h2>Poppy Playtime: Chapter 6 — A Better Place</h2>
-      <p>Explore the Data Center, uncover the story, and survive what waits below.</p>
-      <a href="https://hedgeplays2.github.io/Poppy-Playtime-Chapter-6-Better-Place/">▶ PLAY FEATURED GAME</a>
+      <span class="featured-kicker"><span class="featured-live-dot"></span> HEDGE PROJECT SPOTLIGHT</span>
+      <h2 id="featuredTitle">Poppy Playtime: Chapter 6 — A Better Place</h2>
+      <p>Step into the Data Center, uncover what happened inside Playtime Co., and explore Hedge's fan-made continuation.</p>
+      <div class="featured-tags"><span>HEDGE PROJECT</span><span>HORROR</span><span>CHAPTER 6</span></div>
+      <div class="featured-actions">
+        <a class="featured-play" id="featuredPlay" href="https://hedgeplays2.github.io/Poppy-Playtime-Chapter-6-Better-Place/">▶ PLAY NOW</a>
+        <button type="button" class="featured-details" id="featuredDetails">VIEW DETAILS</button>
+      </div>
     </div>
-    <div class="featured-art" role="img" aria-label="Poppy Playtime Chapter 6 featured game artwork"></div>
+    <div class="featured-art">
+      <img id="featuredImage" alt="Poppy Playtime: Chapter 6 — A Better Place artwork" loading="eager">
+      <span class="featured-art-caption">FEATURED GAME</span>
+    </div>
   </section>
 
   <!-- Hedge Web Arcade -->
@@ -2156,6 +2122,23 @@
       detailsPlay.disabled = !playLink;
       detailsPlay.textContent = playLink ? "▶ Play Game" : "Not Available Yet";
       gameDetailsDialog.showModal();
+    }
+
+    const featuredCard = gameCards.find(card =>
+      card.querySelector("h2")?.textContent.trim() === "Poppy Playtime: Chapter 6 — A Better Place"
+    );
+    if (featuredCard) {
+      const featuredCover = featuredCard.querySelector(".card-image, .game-cover");
+      const featuredImage = document.getElementById("featuredImage");
+      if (featuredCover) featuredImage.src = featuredCover.src;
+      document.getElementById("featuredDetails").addEventListener("click", () => openGameDetails(featuredCard));
+      document.getElementById("featuredPlay").addEventListener("click", event => {
+        event.preventDefault();
+        const originalPlay = Array.from(featuredCard.querySelectorAll("a")).find(link =>
+          !link.classList.contains("report-link") && /play|launch|open/i.test(link.textContent)
+        );
+        if (originalPlay) originalPlay.click();
+      });
     }
 
     document.getElementById("closeGameDetails").addEventListener("click", () => gameDetailsDialog.close());
