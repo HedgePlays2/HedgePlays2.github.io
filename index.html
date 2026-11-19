@@ -1405,6 +1405,10 @@
     @media (max-width:800px) { .trending-section { margin:22px 18px 30px; } }
     @media (max-width:520px) { .trending-section { padding:16px; } .trending-list { grid-template-columns:1fr; } }
 
+  
+    .compatibility-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 11px; }
+    .compatibility-tag { display: inline-flex; align-items: center; gap: 5px; padding: 5px 8px; border: 1px solid #46643a; border-radius: 5px; background: rgba(118,185,0,.12); color: #b9e987; font-size: .7rem; font-weight: 800; letter-spacing: .2px; }
+    body:not(.dark-mode) .compatibility-tag { background: #edf6e7; border-color: #c5d9b8; color: #456d1d; }
   </style>
 </head>
 
@@ -1970,6 +1974,30 @@
     const gameCount = document.getElementById("gameCount");
     const gameGrid = document.querySelector(".grid");
     const gameCards = Array.from(gameGrid.querySelectorAll(".card"));
+    const mobileCompatibility = {
+      "Sonic CD Web": ["Mobile Playable", "Touch Controls"],
+      "Bendy and the Ink Machine Web": ["Mobile Playable", "Touch Controls"]
+    };
+
+    // Only show mobile badges for games whose touch experience has been confirmed.
+    gameCards.forEach(card => {
+      const title = card.querySelector("h2")?.textContent.trim() || "";
+      const tags = mobileCompatibility[title];
+      if (!tags) return;
+      const tagRow = document.createElement("div");
+      tagRow.className = "compatibility-tags";
+      tagRow.setAttribute("aria-label", "Device compatibility");
+      tags.forEach(tagText => {
+        const tag = document.createElement("span");
+        tag.className = "compatibility-tag";
+        tag.textContent = (tagText === "Touch Controls" ? "🎮 " : "📱 ") + tagText;
+        tagRow.appendChild(tag);
+      });
+      const creator = card.querySelector(".creator-label");
+      if (creator) creator.insertAdjacentElement("afterend", tagRow);
+      else card.querySelector("h2")?.insertAdjacentElement("afterend", tagRow);
+    });
+
 
     // Personal library data is saved locally in this browser; no account is needed.
     const FAVORITES_KEY = "hedgeArcadeFavorites";
