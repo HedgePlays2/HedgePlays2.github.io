@@ -530,6 +530,11 @@
     .featured:hover .featured-art img { transform: scale(1.035); }
     .featured-art::after { content: ""; position: absolute; inset: 35% 0 0; background: linear-gradient(transparent, rgba(8,13,9,.78)); pointer-events: none; }
     .featured-art-caption { position: absolute; z-index: 1; right: 14px; bottom: 13px; color: #e9f4e5; font-size: .68rem; font-weight: 900; letter-spacing: 1.5px; text-shadow: 0 2px 8px #000; }
+    .featured-rotation-controls { display: inline-flex; align-items: center; gap: 7px; margin-left: 4px; color: #b8c7b8; font-size: .76rem; font-weight: 800; font-variant-numeric: tabular-nums; }
+    .featured-rotation-controls button { width: 30px; height: 30px; padding: 0; border: 1px solid #526650; border-radius: 6px; background: rgba(20,29,22,.7); color: #e2efdf; font: inherit; font-size: 1.2rem; line-height: 1; cursor: pointer; }
+    .featured-rotation-controls button:hover { border-color: #91d52b; color: #b9ec78; }
+    body:not(.dark-mode) .featured-rotation-controls { color: #536455; }
+    body:not(.dark-mode) .featured-rotation-controls button { background: rgba(255,255,255,.8); color: #334532; border-color: #b9c9b3; }
 
     body:not(.dark-mode) {
       --background: #edf1ed;
@@ -1427,19 +1432,24 @@
     <div class="sidebar-note">HEDGE WEB ARCADE<br><span>PLAY • DISCOVER • REPEAT</span></div>
   </aside>
 
-  <section class="featured" aria-labelledby="featuredTitle">
+  <section class="featured" id="featuredSpotlight" aria-labelledby="featuredTitle">
     <div class="featured-copy">
-      <span class="featured-kicker"><span class="featured-live-dot"></span> HEDGE PROJECT SPOTLIGHT</span>
-      <h2 id="featuredTitle">Poppy Playtime: Chapter 6 — A Better Place</h2>
-      <p>Step into the Data Center, uncover what happened inside Playtime Co., and explore Hedge's fan-made continuation.</p>
-      <div class="featured-tags"><span>HEDGE PROJECT</span><span>HORROR</span><span>CHAPTER 6</span></div>
+      <span class="featured-kicker"><span class="featured-live-dot"></span> ARCADE SPOTLIGHT</span>
+      <h2 id="featuredTitle">Loading featured game…</h2>
+      <p id="featuredDescription">Discover a game from the Hedge Web Arcade.</p>
+      <div class="featured-tags" id="featuredTags"></div>
       <div class="featured-actions">
-        <a class="featured-play" id="featuredPlay" href="https://hedgeplays2.github.io/Poppy-Playtime-Chapter-6-Better-Place/">▶ PLAY NOW</a>
+        <a class="featured-play" id="featuredPlay" href="#library">▶ PLAY NOW</a>
         <button type="button" class="featured-details" id="featuredDetails">VIEW DETAILS</button>
+        <div class="featured-rotation-controls" aria-label="Featured game controls">
+          <button type="button" id="featuredPrevious" aria-label="Previous featured game">‹</button>
+          <span id="featuredRotationStatus" aria-live="polite">1 / 1</span>
+          <button type="button" id="featuredNext" aria-label="Next featured game">›</button>
+        </div>
       </div>
     </div>
     <div class="featured-art">
-      <img id="featuredImage" alt="Poppy Playtime: Chapter 6 — A Better Place artwork" loading="eager">
+      <img id="featuredImage" alt="Featured game artwork" loading="eager">
       <span class="featured-art-caption">FEATURED GAME</span>
     </div>
   </section>
@@ -2124,21 +2134,98 @@
       gameDetailsDialog.showModal();
     }
 
-    const featuredCard = gameCards.find(card =>
-      card.querySelector("h2")?.textContent.trim() === "Poppy Playtime: Chapter 6 — A Better Place"
-    );
-    if (featuredCard) {
-      const featuredCover = featuredCard.querySelector(".card-image, .game-cover");
-      const featuredImage = document.getElementById("featuredImage");
-      if (featuredCover) featuredImage.src = featuredCover.src;
-      document.getElementById("featuredDetails").addEventListener("click", () => openGameDetails(featuredCard));
-      document.getElementById("featuredPlay").addEventListener("click", event => {
-        event.preventDefault();
-        const originalPlay = Array.from(featuredCard.querySelectorAll("a")).find(link =>
-          !link.classList.contains("report-link") && /play|launch|open/i.test(link.textContent)
-        );
-        if (originalPlay) originalPlay.click();
+    // Rotate the spotlight through every library game with a real play link and artwork.
+    const featuredSpotlight = document.getElementById("featuredSpotlight");
+    const featuredCards = gameCards.filter(card => {
+      const cover = card.querySelector(".card-image, .game-cover");
+      const playLink = Array.from(card.querySelectorAll("a")).find(link =>
+        !link.classList.contains("report-link") && /play|launch|open/i.test(link.textContent)
+      );
+      return Boolean(cover && playLink);
+    });
+    const featuredTitle = document.getElementById("featuredTitle");
+    const featuredDescription = document.getElementById("featuredDescription");
+    const featuredTags = document.getElementById("featuredTags");
+    const featuredImage = document.getElementById("featuredImage");
+    const featuredPlay = document.getElementById("featuredPlay");
+    const featuredDetails = document.getElementById("featuredDetails");
+    const featuredRotationStatus = document.getElementById("featuredRotationStatus");
+    let featuredIndex = 0;
+
+    function updateFeaturedSpotlight() {
+      if (!featuredCards.length) {
+        featuredTitle.textContent = "No featured games available";
+        featuredDescription.textContent = "Add a playable game with artwork to the library to feature it here.";
+        featuredPlay.hidden = true;
+        featuredDetails.hidden = true;
+        featuredImage.hidden = true;
+        return;
+      }
+
+      const card = featuredCards[featuredIndex];
+      const title = card.querySelector("h2")?.textContent.trim() || "Featured Game";
+      const description = card.querySelector(":scope > p")?.textContent.trim() || "Play this game from the Hedge Web Arcade.";
+      const cover = card.querySelector(".card-image, .game-cover");
+      const creator = card.querySelector(".creator-label")?.textContent.trim();
+      const categories = categoriesFor(title, description);
+      const categoryLabels = {
+        sonic: "SONIC", horror: "HORROR", rpg: "RPG & STORY",
+        platformer: "PLATFORMER", minecraft: "MINECRAFT", other: "ARCADE"
+      };
+
+      featuredTitle.textContent = title;
+      featuredDescription.textContent = description;
+      featuredImage.src = cover?.src || "";
+      featuredImage.alt = title + " artwork";
+      featuredImage.hidden = !cover;
+      featuredTags.replaceChildren();
+
+      if (creator) {
+        const creatorTag = document.createElement("span");
+        creatorTag.textContent = creator.toUpperCase();
+        featuredTags.appendChild(creatorTag);
+      }
+      categories.forEach(category => {
+        const tag = document.createElement("span");
+        tag.textContent = categoryLabels[category] || category.toUpperCase();
+        featuredTags.appendChild(tag);
       });
+
+      featuredRotationStatus.textContent = (featuredIndex + 1) + " / " + featuredCards.length;
+      featuredPlay.hidden = false;
+      featuredDetails.hidden = false;
+    }
+
+    function showNextFeaturedGame(direction = 1) {
+      if (featuredCards.length < 2) return;
+      featuredIndex = (featuredIndex + direction + featuredCards.length) % featuredCards.length;
+      updateFeaturedSpotlight();
+    }
+
+    document.getElementById("featuredPrevious").addEventListener("click", () => showNextFeaturedGame(-1));
+    document.getElementById("featuredNext").addEventListener("click", () => showNextFeaturedGame(1));
+    featuredDetails.addEventListener("click", () => {
+      const card = featuredCards[featuredIndex];
+      if (card) openGameDetails(card);
+    });
+    featuredPlay.addEventListener("click", event => {
+      event.preventDefault();
+      const card = featuredCards[featuredIndex];
+      if (!card) return;
+      const originalPlay = Array.from(card.querySelectorAll("a")).find(link =>
+        !link.classList.contains("report-link") && /play|launch|open/i.test(link.textContent)
+      );
+      if (originalPlay) originalPlay.click();
+    });
+
+    updateFeaturedSpotlight();
+    if (featuredCards.length > 1) {
+      window.setInterval(() => {
+        if (!document.hidden && !featuredSpotlight.matches(":hover") &&
+            !featuredSpotlight.contains(document.activeElement)) {
+          showNextFeaturedGame(1);
+        }
+      }, 9000);
     }
 
     document.getElementById("closeGameDetails").addEventListener("click", () => gameDetailsDialog.close());
