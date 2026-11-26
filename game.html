@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101411">
+  <title>Game Details | Hedge Web Arcade</title>
+  <style>
+    :root { color-scheme: dark; --bg:#101411; --panel:#1b231e; --line:#344238; --text:#edf3ed; --muted:#a0afa4; --green:#76b900; --bright:#a9e35b; }
+    * { box-sizing:border-box; }
+    body { margin:0; background:var(--bg); color:var(--text); font-family:"Segoe UI",Roboto,Arial,sans-serif; }
+    header { min-height:68px; display:flex; align-items:center; gap:14px; padding:12px clamp(18px,4vw,48px); background:#171d19; border-bottom:1px solid #2c382f; }
+    .brand { color:var(--text); text-decoration:none; font-size:1.15rem; font-weight:800; letter-spacing:.2px; }
+    .back { margin-left:auto; color:#dce9dc; text-decoration:none; border:1px solid #526253; border-radius:7px; padding:9px 13px; font-weight:700; }
+    .back:hover { border-color:var(--green); color:var(--bright); }
+    main { width:min(1000px,calc(100% - 32px)); margin:32px auto 60px; }
+    .hero { position:relative; min-height:220px; overflow:hidden; border:1px solid #40543d; border-radius:14px; background:linear-gradient(120deg,#202d23,#111812); }
+    .hero img { display:block; width:100%; height:clamp(220px,38vw,390px); object-fit:cover; opacity:.86; }
+    .hero::after { content:""; position:absolute; inset:35% 0 0; background:linear-gradient(transparent,rgba(12,18,13,.9)); pointer-events:none; }
+    .content { position:relative; margin:-55px 0 0; padding:0 clamp(18px,4vw,38px); }
+    h1 { margin:0; font-size:clamp(1.8rem,5vw,3rem); line-height:1.1; }
+    .meta,.tags,.actions { display:flex; flex-wrap:wrap; align-items:center; gap:9px; }
+    .meta { margin:16px 0 24px; }
+    .pill { display:inline-flex; padding:7px 10px; border:1px solid #52634f; border-radius:6px; background:#293a20; color:#b5e477; font-size:.78rem; font-weight:800; }
+    .section { margin-top:26px; padding:20px; border:1px solid var(--line); border-radius:10px; background:var(--panel); }
+    .section h2 { margin:0 0 10px; color:var(--bright); font-size:.82rem; letter-spacing:1.4px; text-transform:uppercase; }
+    .section p { margin:0; color:#c1cec2; line-height:1.7; white-space:pre-line; }
+    .warning { display:inline-flex; margin:4px 6px 4px 0; padding:6px 9px; border:1px solid #8b6334; border-radius:5px; background:#352719; color:#ffd28a; font-size:.78rem; font-weight:800; }
+    .actions { margin-top:24px; }
+    .play { display:inline-block; padding:13px 22px; border-radius:7px; background:var(--green); color:#10170b; text-decoration:none; font-weight:900; }
+    .play:hover { background:#91d52b; }
+    .secondary { display:inline-block; padding:12px 18px; border:1px solid #526253; border-radius:7px; color:#dce9dc; text-decoration:none; font-weight:800; }
+    .secondary:hover { border-color:var(--green); color:var(--bright); }
+    .empty { color:var(--muted); }
+    footer { padding:25px; border-top:1px solid #273329; color:#748176; text-align:center; font-size:.85rem; }
+    @media(max-width:600px) { main { margin-top:18px; } .section { padding:16px; } }
+  </style>
+</head>
+<body>
+  <header>
+    <a class="brand" href="index.html">🎮 Hedge Web Arcade</a>
+    <a class="back" href="index.html#library">← Back to Library</a>
+  </header>
+  <main>
+    <section class="hero" aria-label="Game artwork"><img id="art" alt=""></section>
+    <div class="content">
+      <h1 id="title">Game Details</h1>
+      <div class="meta" id="meta"></div>
+      <div class="section">
+        <h2>About this game</h2>
+        <p id="description"></p>
+      </div>
+      <div class="section" id="warningSection" hidden>
+        <h2>Content advisories</h2>
+        <div id="warnings"></div>
+      </div>
+      <div class="section" id="notesSection" hidden>
+        <h2>Important notes</h2>
+        <p id="notes"></p>
+      </div>
+      <div class="section">
+        <h2>Controls</h2>
+        <p>Controls vary by game. Check the game's on-screen instructions or the information provided by its creator. Touch controls are only available on games specifically marked as mobile playable.</p>
+      </div>
+      <div class="actions">
+        <a class="play" id="play" href="#" hidden>▶ Play Game</a>
+        <a class="secondary" id="report" href="#" target="_blank" rel="noopener noreferrer" hidden>Report a Problem</a>
+      </div>
+      <p class="empty" id="missing" hidden>This game does not currently have a launch link.</p>
+    </div>
+  </main>
+  <footer>Hedge Web Arcade · Game information and third-party credits are provided where known.</footer>
+  <script>
+    const params = new URLSearchParams(location.search);
+    const get = key => params.get(key) || "";
+    const title = get("title") || "Game Details";
+    document.title = title + " | Hedge Web Arcade";
+    document.getElementById("title").textContent = title;
+    document.getElementById("description").textContent = get("description") || "Game information has not been added yet.";
+    const art = document.getElementById("art");
+    if (get("image")) { art.src = get("image"); art.alt = title + " artwork"; }
+    else { art.hidden = true; document.querySelector(".hero").style.display = "none"; }
+    const meta = document.getElementById("meta");
+    if (get("creator")) {
+      const label = document.createElement("span");
+      label.className = "pill";
+      label.textContent = get("creator");
+      meta.appendChild(label);
+    }
+    get("categories").split("|").filter(Boolean).forEach(category => {
+      const label = document.createElement("span");
+      label.className = "pill";
+      label.textContent = category.toUpperCase();
+      meta.appendChild(label);
+    });
+    const warningItems = get("warnings").split("|").filter(Boolean);
+    if (warningItems.length) {
+      document.getElementById("warningSection").hidden = false;
+      warningItems.forEach(item => {
+        const tag = document.createElement("span");
+        tag.className = "warning";
+        tag.textContent = "⚠ " + item;
+        document.getElementById("warnings").appendChild(tag);
+      });
+    }
+    if (get("notes")) {
+      document.getElementById("notesSection").hidden = false;
+      document.getElementById("notes").textContent = get("notes");
+    }
+    const play = document.getElementById("play");
+    if (get("play")) {
+      play.href = get("play");
+      play.hidden = false;
+      if (get("strongWarning") === "true") {
+        play.addEventListener("click", event => {
+          if (!confirm(title + " contains content that may be disturbing. Continue to the game?")) event.preventDefault();
+        });
+      }
+      if (get("playTarget") === "_blank") { play.target = "_blank"; play.rel = "noopener noreferrer"; }
+    } else document.getElementById("missing").hidden = false;
+    const report = document.getElementById("report");
+    if (get("report")) { report.href = get("report"); report.hidden = false; }
+  </script>
+</body>
+</html>
