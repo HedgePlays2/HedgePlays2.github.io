@@ -864,6 +864,13 @@
     .details-content h2 { margin: 0 0 10px; font-size: clamp(1.6rem, 4vw, 2.3rem); }
     .details-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin: 12px 0 20px; }
     .details-description { color: #c1cec2; line-height: 1.65; white-space: pre-line; }
+    .research-facts { display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:10px; margin-top:18px; }
+    .research-fact { padding:13px 15px; border:1px solid #344638; border-radius:8px; background:rgba(35,52,38,.55); }
+    .research-fact strong { display:block; margin-bottom:5px; color:#a9e35b; font-size:.72rem; letter-spacing:1px; text-transform:uppercase; }
+    .research-fact span { color:#d2ded3; line-height:1.45; }
+    .research-summary { margin-top:16px; color:#c1cec2; line-height:1.65; }
+    .research-source { display:inline-block; margin-top:12px; color:#a9e35b; font-size:.88rem; font-weight:700; }
+    .research-source:hover { color:#d0ff8c; }
     .details-section-title { margin: 24px 0 8px; color: #a9e35b; font-size: .78rem; letter-spacing: 1.4px; text-transform: uppercase; }
     .details-notes { color: #c1cec2; line-height: 1.6; }
     .details-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
@@ -1888,6 +1895,7 @@
       <div class="details-meta" id="detailsMeta"></div>
       <div class="details-section-title">About this game</div>
       <p class="details-description" id="detailsDescription"></p>
+      <div id="detailsResearch"></div>
       <div id="detailsWarnings"></div>
       <div id="detailsNotes"></div>
       <div class="details-actions">
@@ -2161,6 +2169,29 @@
       window.location.href = "game.html?" + params.toString();
     }
 
+    // Researched facts are kept separate from the browser-port listing so credits stay accurate.
+    const researchedGameInfo = {
+      "Sonic Time Twisted Web Port": { developer:"Elmisterioso Teams Productions (original fangame)", genre:"2D platformer · Sonic fangame", gameplay:"A classic-style Sonic adventure featuring Sonic, Tails, and Knuckles. It includes time travel between past and future versions of stages, special stages, elemental shields, and boss fights.", source:"Original game's creator page", url:"https://elmisterioso-team-games.itch.io/sonic-time-twisted" },
+      "Sonic Robo Blast 2 Web": { developer:"Sonic Team Junior (original fangame)", genre:"3D platformer · Open-source fangame", gameplay:"A 3D Sonic fangame inspired by the Genesis-era games. The web edition brings its high-speed levels, enemies, and exploration to a browser; the web port is a separate project from the original game.", source:"SRB2 official website", url:"https://www.srb2.org/" },
+      "Sonic Mania Plus Web": { developer:"Original game: Christian Whitehead, Headcannon, PagodaWest Games, with Sonic Team", genre:"2D platformer", gameplay:"A modern take on classic 2D Sonic. Race through colorful zones, build momentum, collect rings and Chaos Emeralds, battle bosses, and play as characters with different abilities. The Plus edition adds Mighty, Ray, and Encore Mode.", source:"Netflix game overview", url:"https://www.netflix.com/tudum/articles/sonic-mania-plus-mobile-game-news" },
+      "Sonic CD Web": { developer:"Original game: SEGA", genre:"2D platformer", gameplay:"Sonic travels to Little Planet to stop Dr. Eggman and Metal Sonic. Its signature mechanic lets Sonic travel between the past, present, and future of each stage, changing the future by acting in the past.", source:"SEGA online manual", url:"https://manuals.sega.com/origins/en/" },
+      "Cuphead Web": { developer:"Studio MDHR", genre:"Run-and-gun · Boss-rush platformer", gameplay:"A hand-drawn action game built around challenging one-on-one boss battles, precise movement, shooting, and pattern-reading. It also includes platforming stages and a world map to explore.", source:"Studio MDHR: What kind of game is Cuphead?", url:"https://studiomdhr.com/what-kind-of-game-is-cuphead/" },
+      "Baldi's Basics Plus": { developer:"Basically Games", genre:"First-person stealth · Roguelike horror", gameplay:"A parody of 1990s educational software that turns into a tense hide-and-seek challenge. Collect notebooks while avoiding Baldi, use items and strategy, and adapt to randomized school layouts, characters, and events.", source:"Basically Games official website", url:"https://www.basicallygames.com/" },
+      "Bendy and the Ink Machine Web": { developer:"Joey Drew Studios", genre:"First-person puzzle-action horror", gameplay:"You play as Henry, a former animator returning to an abandoned animation studio. Explore its eerie cartoon world, solve puzzles, face hostile ink creatures, and try to escape the Ink Demon.", source:"Joey Drew Studios official game page", url:"https://joeydrewstudios.com/batim" },
+      "Undertale Yellow Web": { developer:"Team Undertale Yellow (fan game)", genre:"RPG · Adventure", gameplay:"A fan-made prequel to UNDERTALE following Clover, a human who explores the Underground. Encounters use bullet-dodging battles, and player choices shape the route and outcome of the story.", source:"Undertale Yellow press kit", url:"https://www.igdb.com/games/undertale-yellow/presskit" },
+      "Sonic and the Fallen Star": { developer:"StarDrop and Hollie Taylor (fan game)", genre:"2D platformer · Sonic fangame", gameplay:"An original 2D Sonic adventure with new zones, music, characters, enemies, and boss fights. It also features cutscenes between zones and special stages.", source:"NME feature on the fan game", url:"https://www.nme.com/news/gaming-news/sonic-and-the-fallen-star-is-a-complete-2d-fan-game-inspired-by-sonic-mania-3260615" },
+      "Doki Doki Literature Club! Web": { developer:"Team Salvato", genre:"Visual novel · Psychological horror", gameplay:"A story-focused visual novel about joining a school literature club and getting to know its members. Its cheerful presentation hides darker psychological-horror themes; content advisories are important before playing.", source:"Team Salvato official game page", url:"https://teamsalvato.itch.io/ddlc" },
+      "Garten of Banban 1": { developer:"Euphoric Brothers", genre:"First-person adventure · Horror", gameplay:"Explore the abandoned Banban's Kindergarten, investigate why everyone disappeared, encounter its mascot characters, and use a flying drone to help navigate the facility.", source:"Euphoric Brothers official website", url:"https://www.euphoricbrothers.com/" },
+      "Minecraft: Story Mode Web": { developer:"Telltale Games, with Mojang", genre:"Episodic narrative adventure", gameplay:"A story-driven Minecraft adventure focused on dialogue choices, exploration, puzzles, and quick-time action sequences. Decisions can influence later story events.", source:"Telltale Games official page", url:"https://telltale.com/minecraft-story-mode/" },
+      "Minecraft: Story Mode Web — Alternate Port": { developer:"Telltale Games, with Mojang", genre:"Episodic narrative adventure", gameplay:"A story-driven Minecraft adventure focused on dialogue choices, exploration, puzzles, and quick-time action sequences. Decisions can influence later story events.", source:"Telltale Games official page", url:"https://telltale.com/minecraft-story-mode/" },
+      "Sonic Classic Heroes": { developer:"Flamewing and MainMemory (fan project)", genre:"16-bit platformer · Sonic fangame", gameplay:"A fan-made Genesis-style Sonic game built around a team of three characters. Sonic, Tails, and Knuckles can work together, combining their abilities while exploring classic-style side-scrolling stages.", source:"Sonic Classic Heroes overview", url:"https://emugamers.com/games/sonic-classic-heroes" },
+      "Sonic Triple Trouble 16-bit Web": { developer:"Noah N. Copeland / community contributors (fan game)", genre:"16-bit platformer · Sonic fangame", gameplay:"A fan-made reimagining of Sonic Triple Trouble with 16-bit visuals and gameplay inspired by the classic Genesis Sonic titles. This is a third-party project, not a Hedge-made game.", source:"Project web port", url:"https://sonic-triple-trouble-16-bit-webport.pages.dev/" },
+      "DELTARUNE Chapters 1–4 Web": { developer:"tobyfox", genre:"Chapter-based RPG · Bullet-dodging battles", gameplay:"A parallel-story RPG to UNDERTALE. Explore a mysterious world with a growing cast, then fight or spare enemies through turn-based encounters that include real-time bullet-dodging sections.", source:"DELTARUNE on Steam", url:"https://store.steampowered.com/app/1671210/DELTARUNE/" },
+      "DELTARUNE Web": { developer:"tobyfox", genre:"Chapter-based RPG · Bullet-dodging battles", gameplay:"A parallel-story RPG to UNDERTALE. Explore a mysterious world with a growing cast, then fight or spare enemies through turn-based encounters that include real-time bullet-dodging sections.", source:"DELTARUNE on Steam", url:"https://store.steampowered.com/app/1671210/DELTARUNE/" },
+      "UNDERTALE Web": { developer:"tobyfox", genre:"RPG · Story adventure", gameplay:"An underground journey where you encounter monsters and decide how to handle them. Battles combine menu choices with real-time bullet-dodging, and the story reacts to how you treat the characters you meet.", source:"UNDERTALE official website", url:"https://undertale.com/" },
+      "Poppy Playtime: Chapter 6 — A Better Place": { developer:"Hedge Web Arcade project · fan-made / unofficial", genre:"First-person horror-adventure · Fan project", gameplay:"This is an unofficial fan-made web project, not an official Mob Entertainment chapter. Its own story and features are described by the Hedge Web Arcade listing; official Poppy Playtime is a survival-horror series set in the abandoned Playtime Co. toy factory.", source:"Official Poppy Playtime franchise overview", url:"https://www.mobentertainment.com/poppy-playtime" }
+    };
+
     function openGameDetails(card) {
       activeDetailsCard = card;
       const title = card.querySelector("h2")?.textContent.trim() || "Game Details";
@@ -2181,7 +2212,37 @@
         label.textContent = creator.textContent.trim();
         detailsMeta.appendChild(label);
       }
-      detailsDescription.textContent = paragraphs.shift() || "Game information has not been added yet.";
+      const listingDescription = paragraphs.shift() || "Game information has not been added yet.";
+      const researched = researchedGameInfo[title];
+      detailsDescription.textContent = researched ? researched.gameplay : listingDescription;
+      const researchPanel = document.getElementById("detailsResearch");
+      researchPanel.replaceChildren();
+      if (researched) {
+        const facts = document.createElement("div");
+        facts.className = "research-facts";
+        [["Original developer", researched.developer], ["Genre", researched.genre]].forEach(([headingText, value]) => {
+          const item = document.createElement("div");
+          item.className = "research-fact";
+          const heading = document.createElement("strong");
+          heading.textContent = headingText;
+          const detail = document.createElement("span");
+          detail.textContent = value;
+          item.append(heading, detail);
+          facts.appendChild(item);
+        });
+        const source = document.createElement("a");
+        source.className = "research-source";
+        source.href = researched.url;
+        source.target = "_blank";
+        source.rel = "noopener noreferrer";
+        source.textContent = "Source: " + researched.source + " ↗";
+        researchPanel.append(facts, source);
+      } else {
+        const note = document.createElement("p");
+        note.className = "research-summary";
+        note.textContent = "More verified background information for this title is still being researched. The description above is from the Hedge Web Arcade listing.";
+        researchPanel.appendChild(note);
+      }
       detailsWarnings.replaceChildren();
       if (advisories.length) {
         const heading = document.createElement("div");
