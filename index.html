@@ -2135,6 +2135,32 @@
     const detailsReport = document.getElementById("detailsReport");
     let activeDetailsCard = null;
 
+    function openGamePage(card) {
+      const title = card.querySelector("h2")?.textContent.trim() || "Game Details";
+      const cover = card.querySelector(".card-image, .game-cover");
+      const creator = card.querySelector(".creator-label")?.textContent.trim() || "";
+      const paragraphs = Array.from(card.querySelectorAll(":scope > p"))
+        .map(p => p.textContent.trim()).filter(Boolean);
+      const report = card.querySelector("a.report-link");
+      const playLink = Array.from(card.querySelectorAll("a")).find(link =>
+        !link.classList.contains("report-link") && /play|launch|open/i.test(link.textContent)
+      );
+      const params = new URLSearchParams({
+        title,
+        description: paragraphs.shift() || "Game information has not been added yet.",
+        notes: paragraphs.join("\n\n"),
+        image: cover?.currentSrc || cover?.src || "",
+        creator,
+        warnings: (contentAdvisories[title] || []).join("|"),
+        play: playLink?.href || "",
+        playTarget: playLink?.target || "",
+        report: report?.href || "",
+        categories: categoriesFor(title, card.querySelector("p")?.textContent || "").join("|"),
+        strongWarning: String(strongContentWarnings.has(title))
+      });
+      window.location.href = "game.html?" + params.toString();
+    }
+
     function openGameDetails(card) {
       activeDetailsCard = card;
       const title = card.querySelector("h2")?.textContent.trim() || "Game Details";
@@ -2264,7 +2290,7 @@
     document.getElementById("featuredNext").addEventListener("click", () => showNextFeaturedGame(1));
     featuredDetails.addEventListener("click", () => {
       const card = featuredCards[featuredIndex];
-      if (card) openGameDetails(card);
+      if (card) openGamePage(card);
     });
     featuredPlay.addEventListener("click", event => {
       event.preventDefault();
@@ -2329,7 +2355,7 @@
       detailsButton.className = "details-button";
       detailsButton.textContent = "View Details";
       detailsButton.setAttribute("aria-label", "View details for " + title);
-      detailsButton.addEventListener("click", () => openGameDetails(card));
+      detailsButton.addEventListener("click", () => openGamePage(card));
       actions.appendChild(detailsButton);
       card.appendChild(actions);
 
