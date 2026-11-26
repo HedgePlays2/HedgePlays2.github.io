@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#101411">
+  <title>Credits | Hedge Web Arcade</title>
+  <style>
+    :root { color-scheme: dark; --bg:#101411; --panel:#171d19; --card:#1b231e; --line:#2c382f; --text:#edf3ed; --muted:#a0afa4; --green:#76b900; --pale:#b5e477; }
+    * { box-sizing:border-box; }
+    body { margin:0; min-height:100vh; background:var(--bg); color:var(--text); font-family:"Segoe UI",Roboto,Arial,sans-serif; }
+    header { display:flex; align-items:center; gap:15px; padding:16px 28px; background:var(--panel); border-bottom:1px solid var(--line); }
+    header img { width:48px; height:48px; object-fit:contain; }
+    header h1 { margin:0; font-size:1.35rem; }
+    .wrap { width:min(900px,calc(100% - 36px)); margin:42px auto 70px; }
+    .eyebrow { color:var(--pale); font-size:.72rem; font-weight:900; letter-spacing:2px; }
+    h2 { margin:10px 0; font-size:clamp(2rem,5vw,3rem); }
+    .intro { max-width:720px; color:var(--muted); line-height:1.7; }
+    .panel { margin-top:24px; padding:24px; background:var(--card); border:1px solid var(--line); border-radius:12px; }
+    .panel h3 { margin:0 0 14px; color:var(--pale); font-size:1.08rem; }
+    .credit { padding:13px 0; border-top:1px solid var(--line); line-height:1.6; }
+    .credit:first-of-type { border-top:0; padding-top:0; }
+    .credit strong { color:var(--text); }
+    .credit p { margin:5px 0 0; color:var(--muted); }
+    a { color:var(--pale); }
+    .back { display:inline-flex; align-items:center; margin-top:28px; padding:11px 16px; border-radius:7px; background:var(--green); color:#10170b; font-weight:800; text-decoration:none; }
+    .back:hover { background:#91d52b; }
+    footer { padding:24px; border-top:1px solid var(--line); color:#748176; text-align:center; font-size:.88rem; }
+    @media(max-width:600px) { header { padding:13px 18px; } .wrap { margin-top:30px; } .panel { padding:18px; } }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="logo.png" alt="Hedge Web Arcade logo">
+    <h1>Hedge Web Arcade</h1>
+  </header>
+  <main class="wrap">
+    <div class="eyebrow">THE PEOPLE & PROJECTS BEHIND THE GAMES</div>
+    <h2>Credits</h2>
+    <p class="intro">Hedge Web Arcade is a collection of browser games and projects. This page recognizes the developers, studios, and port creators whose work makes the arcade possible. Hosting a game here does not mean it was created or owned by Hedge.</p>
+
+    <section class="panel">
+      <h3>Arcade & website</h3>
+      <div class="credit"><strong>Hedge</strong><p>Creator and maintainer of Hedge Web Arcade. Site design, game-library organization, and hosting.</p></div>
+      <div class="credit"><strong>GitHub Pages</strong><p>Website hosting.</p></div>
+    </section>
+
+    <section class="panel">
+      <h3>Game & port credits</h3>
+      <div class="credit"><strong>Bendy and the Ink Machine Web Port</strong><p>Web port by Crackers. Bendy and the Ink Machine and its characters belong to their respective rights holders.</p></div>
+      <div class="credit"><strong>Sonic CD Web</strong><p>Originally made by Crush Arcade. Sonic CD is © SEGA.</p></div>
+      <div class="credit"><strong>Sonic Mania Plus Web</strong><p>Not made by Hedge. Sonic Mania Plus is © SEGA.</p></div>
+      <div class="credit"><strong>Sonic Time Twisted</strong><p>Original game by Overbound Game Studio. © Overbound Game Studio.</p></div>
+      <div class="credit"><strong>Sonic Triple Trouble 16-bit</strong><p>Original game by Noah N. Copeland; browser port by its respective port creator.</p></div>
+      <div class="credit"><strong>Sonic and the Fallen Star</strong><p>Original game by Ugs; the arcade entry is a web port.</p></div>
+      <div class="credit"><strong>Super Mario Galaxy Web</strong><p>Web port using modified GalaxyQuest and Petari decompilation work. Mario and related properties belong to Nintendo.</p></div>
+      <div class="credit"><strong>Garten of Banban 1</strong><p>Browser port sourced from GN-Math; not made by Hedge.</p></div>
+      <div class="credit"><strong>Doki Doki Literature Club, Minecraft: Story Mode, Sonic The Webhog, WebSonic, Cuphead, Baldi's Basics Plus, Capuchin, Happyhills Homicide, and Sonic Classic Heroes</strong><p>Third-party games or ports hosted in the arcade. They are not made by Hedge; their original creators and rights holders retain ownership.</p></div>
+    </section>
+
+    <section class="panel">
+      <h3>Ownership & acknowledgements</h3>
+      <div class="credit"><strong>Third-party content</strong><p>All original games, characters, artwork, music, trademarks, and related materials belong to their respective creators and rights holders. Hedge Web Arcade does not claim ownership of third-party works.</p></div>
+      <div class="credit"><strong>Thank you!</strong><p>Thanks to the original developers, port authors, contributors, and players who support browser gaming.</p></div>
+    </section>
+
+    <a class="back" href="./">← Back to the Arcade</a>
+  </main>
+  <footer>2026 Hedge — Hosted on GitHub Pages</footer>
+</body>
+</html>
