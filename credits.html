@@ -6,64 +6,258 @@
   <meta name="theme-color" content="#101411">
   <title>Credits | Hedge Web Arcade</title>
   <style>
-    :root { color-scheme: dark; --bg:#101411; --panel:#171d19; --card:#1b231e; --line:#2c382f; --text:#edf3ed; --muted:#a0afa4; --green:#76b900; --pale:#b5e477; }
+    :root { color-scheme:dark; --bg:#101411; --panel:#171d19; --card:#1b231e; --line:#2c382f; --text:#edf3ed; --muted:#a0afa4; --green:#76b900; --pale:#b5e477; }
     * { box-sizing:border-box; }
     body { margin:0; min-height:100vh; background:var(--bg); color:var(--text); font-family:"Segoe UI",Roboto,Arial,sans-serif; }
     header { display:flex; align-items:center; gap:15px; padding:16px 28px; background:var(--panel); border-bottom:1px solid var(--line); }
-    header img { width:48px; height:48px; object-fit:contain; }
-    header h1 { margin:0; font-size:1.35rem; }
-    .wrap { width:min(900px,calc(100% - 36px)); margin:42px auto 70px; }
+    header img { width:48px; height:48px; object-fit:contain; } header h1 { margin:0; font-size:1.35rem; }
+    .wrap { width:min(980px,calc(100% - 36px)); margin:42px auto 70px; }
     .eyebrow { color:var(--pale); font-size:.72rem; font-weight:900; letter-spacing:2px; }
-    h2 { margin:10px 0; font-size:clamp(2rem,5vw,3rem); }
-    .intro { max-width:720px; color:var(--muted); line-height:1.7; }
-    .panel { margin-top:24px; padding:24px; background:var(--card); border:1px solid var(--line); border-radius:12px; }
-    .panel h3 { margin:0 0 14px; color:var(--pale); font-size:1.08rem; }
-    .credit { padding:13px 0; border-top:1px solid var(--line); line-height:1.6; }
-    .credit:first-of-type { border-top:0; padding-top:0; }
-    .credit strong { color:var(--text); }
-    .credit p { margin:5px 0 0; color:var(--muted); }
-    a { color:var(--pale); }
-    .back { display:inline-flex; align-items:center; margin-top:28px; padding:11px 16px; border-radius:7px; background:var(--green); color:#10170b; font-weight:800; text-decoration:none; }
-    .back:hover { background:#91d52b; }
-    footer { padding:24px; border-top:1px solid var(--line); color:#748176; text-align:center; font-size:.88rem; }
-    @media(max-width:600px) { header { padding:13px 18px; } .wrap { margin-top:30px; } .panel { padding:18px; } }
+    h2 { margin:10px 0; font-size:clamp(2rem,5vw,3rem); } .intro { max-width:820px; color:var(--muted); line-height:1.7; }
+    .notice { margin:24px 0; padding:16px 18px; border:1px solid #526650; border-left:4px solid var(--green); border-radius:9px; background:#19231a; color:#cbd8ca; line-height:1.65; }
+    .group-title { margin:38px 0 14px; color:var(--pale); font-size:1.25rem; }
+    .credit-list { display:grid; gap:13px; }
+    .credit { padding:19px 21px; background:var(--card); border:1px solid var(--line); border-radius:10px; }
+    .credit h3 { margin:0 0 9px; font-size:1.06rem; color:var(--text); }
+    .credit p { margin:6px 0; color:var(--muted); line-height:1.62; }
+    .credit strong { color:#dce9dc; } .credit a { color:var(--pale); text-decoration:none; } .credit a:hover { text-decoration:underline; }
+    .tag { display:inline-block; margin:0 6px 5px 0; padding:3px 7px; border-radius:4px; background:#293a20; color:var(--pale); font-size:.68rem; font-weight:800; letter-spacing:.5px; }
+    .back { display:inline-flex; margin-top:30px; padding:11px 16px; border-radius:7px; background:var(--green); color:#10170b; font-weight:800; text-decoration:none; }
+    .back:hover { background:#91d52b; } footer { padding:24px; border-top:1px solid var(--line); color:#748176; text-align:center; font-size:.88rem; }
+    @media(max-width:600px) { header { padding:13px 18px; } .wrap { margin-top:30px; } .credit { padding:16px; } }
   </style>
 </head>
 <body>
-  <header>
-    <img src="logo.png" alt="Hedge Web Arcade logo">
-    <h1>Hedge Web Arcade</h1>
-  </header>
+  <header><img src="logo.png" alt="Hedge Web Arcade logo"><h1>Hedge Web Arcade</h1></header>
   <main class="wrap">
     <div class="eyebrow">THE PEOPLE & PROJECTS BEHIND THE GAMES</div>
     <h2>Credits</h2>
-    <p class="intro">Hedge Web Arcade is a collection of browser games and projects. This page recognizes the developers, studios, and port creators whose work makes the arcade possible. Hosting a game here does not mean it was created or owned by Hedge.</p>
+    <p class="intro">A game-by-game credit list for the titles currently featured in Hedge Web Arcade. It separates the original game creators from web-port authors and from Hedge, which hosts or maintains some entries. Credits are provided for attribution; hosting a game does not mean Hedge created, owns, or has special affiliation with it.</p>
+    <div class="notice"><strong>Attribution note:</strong> Where a port author or individual contributor could not be reliably confirmed from the information available, this page says so instead of guessing. If you are a creator or rights holder and would like a credit corrected or expanded, please use the <a href="https://github.com/HedgePlays2/HedgePlays2.github.io/issues">arcade's GitHub issue page</a>.</div>
 
-    <section class="panel">
-      <h3>Arcade & website</h3>
-      <div class="credit"><strong>Hedge</strong><p>Creator and maintainer of Hedge Web Arcade. Site design, game-library organization, and hosting.</p></div>
-      <div class="credit"><strong>GitHub Pages</strong><p>Website hosting.</p></div>
-    </section>
+    <h2 class="group-title">Hedge-created projects</h2>
+    <div class="credit-list">
+      <article class="credit">
+        <h3>Poppy Playtime: Chapter 6 — A Better Place</h3><span class="tag">HEDGE PROJECT</span><span class="tag">FAN-MADE</span>
+        <p><strong>Project creator:</strong> Hedge (HedgePlays2).</p>
+        <p><strong>Development:</strong> Original fan-made browser project, story, implementation, and web presentation by Hedge. This is an unofficial fan continuation and is not an official Mob Entertainment chapter.</p>
+        <p><strong>Original franchise:</strong> Poppy Playtime is owned by Mob Entertainment. Its characters, setting, names, and original materials remain the property of their respective rights holders.</p>
+      </article>
+      <article class="credit">
+        <h3>Sonic Time Twisted Web Port</h3><span class="tag">HEDGE WEB-PORT PROJECT</span>
+        <p><strong>Original game:</strong> Sonic Time Twisted by Overbound Game Studio.</p>
+        <p><strong>Web-port project:</strong> Hedge (HedgePlays2) is developing and maintaining this separate browser-port project. The original game and its characters remain credited to their creators and SEGA as applicable.</p>
+        <p><strong>Rights:</strong> Sonic the Hedgehog and related characters are SEGA properties. This is an unofficial fan project.</p>
+      </article>
+    </div>
 
-    <section class="panel">
-      <h3>Game & port credits</h3>
-      <div class="credit"><strong>Bendy and the Ink Machine Web Port</strong><p>Web port by Crackers. Bendy and the Ink Machine and its characters belong to their respective rights holders.</p></div>
-      <div class="credit"><strong>Sonic CD Web</strong><p>Originally made by Crush Arcade. Sonic CD is © SEGA.</p></div>
-      <div class="credit"><strong>Sonic Mania Plus Web</strong><p>Not made by Hedge. Sonic Mania Plus is © SEGA.</p></div>
-      <div class="credit"><strong>Sonic Time Twisted</strong><p>Original game by Overbound Game Studio. © Overbound Game Studio.</p></div>
-      <div class="credit"><strong>Sonic Triple Trouble 16-bit</strong><p>Original game by Noah N. Copeland; browser port by its respective port creator.</p></div>
-      <div class="credit"><strong>Sonic and the Fallen Star</strong><p>Original game by Ugs; the arcade entry is a web port.</p></div>
-      <div class="credit"><strong>Super Mario Galaxy Web</strong><p>Web port using modified GalaxyQuest and Petari decompilation work. Mario and related properties belong to Nintendo.</p></div>
-      <div class="credit"><strong>Garten of Banban 1</strong><p>Browser port sourced from GN-Math; not made by Hedge.</p></div>
-      <div class="credit"><strong>Doki Doki Literature Club, Minecraft: Story Mode, Sonic The Webhog, WebSonic, Cuphead, Baldi's Basics Plus, Capuchin, Happyhills Homicide, and Sonic Classic Heroes</strong><p>Third-party games or ports hosted in the arcade. They are not made by Hedge; their original creators and rights holders retain ownership.</p></div>
-    </section>
+    <h2 class="group-title">Sonic games & fan projects</h2>
+    <div class="credit-list">
+      <article class="credit">
+        <h3>Sonic Triple Trouble 16-bit Web</h3><span class="tag">THIRD-PARTY GAME</span><span class="tag">THIRD-PARTY WEB PORT</span>
+        <p><strong>Original game direction and design:</strong> Noah N. Copeland.</p>
+        <p><strong>Development team:</strong> A collaborative fan team including artists, programmers, level designers, musicians, translators, and contributors. The game's published credits include Dee Liteyears, Dolphman, DarkVampireDee, KamiJoJo, Emma Marrone, joshyflip, Michaelwave, Senpai Star, Joevan Salmon-Johnson (VectorSatyr), Lewis (LapperDev), Savordez, and many others.</p>
+        <p><strong>Original franchise:</strong> Sonic the Hedgehog is owned by SEGA; the original 8-bit Sonic Triple Trouble was developed by Aspect and published by SEGA. This 16-bit fan game is not made by Hedge. The browser-port author is not confirmed here.</p>
+        <p><a href="https://www.mobygames.com/game/203618/sonic-triple-trouble-16-bit/credits/windows/">Reference: published game-credit listing</a>.</p>
+      </article>
+      <article class="credit">
+        <h3>Sonic 1 Web</h3><span class="tag">THIRD-PARTY WEB PORT</span>
+        <p><strong>Original game:</strong> Sonic the Hedgehog (1991), developed by Sonic Team and published by SEGA.</p>
+        <p><strong>Original creative leadership:</strong> Yuji Naka, Naoto Ohshima, and Hirokazu Yasuhara are among the key original creators associated with the first game.</p>
+        <p><strong>Browser port:</strong> The specific port author and source build are not confirmed in the arcade listing. This entry is not a Hedge-created game or port.</p>
+      </article>
+      <article class="credit">
+        <h3>Sonic 2 Web Port</h3><span class="tag">THIRD-PARTY WEB PORT</span>
+        <p><strong>Original game:</strong> Sonic the Hedgehog 2, developed by the Sonic Team and Sega Technical Institute collaboration and published by SEGA.</p>
+        <p><strong>Original contributors:</strong> The original game's development involved members of Sonic Team and STI, including Yuji Naka, Hirokazu Yasuhara, and Mark Cerny in key roles.</p>
+        <p><strong>Browser port:</strong> The specific port author and source build are not confirmed in the arcade listing. Not made by Hedge.</p>
+      </article>
+      <article class="credit">
+        <h3>Sonic Robo Blast 2 Web</h3><span class="tag">COMMUNITY GAME</span><span class="tag">WEB PORT BY GVBVDXX</span>
+        <p><strong>Original game:</strong> Sonic Robo Blast 2 is a community-developed 3D Sonic fangame created by the Sonic Team Junior community.</p>
+        <p><strong>Browser port:</strong> gvbvdxx.</p>
+        <p><strong>Franchise:</strong> Sonic the Hedgehog and its characters are SEGA properties. Sonic Robo Blast 2 is an unofficial fan game.</p>
+        <p><a href="https://srb2web.gvbvdxx.me/">Web port</a> · <a href="https://www.srb2.org/">Sonic Robo Blast 2 project</a>.</p>
+      </article>
+      <article class="credit">
+        <h3>Sonic 3 A.I.R. Web</h3><span class="tag">COMMUNITY WEB PORT</span>
+        <p><strong>Original game:</strong> Sonic the Hedgehog 3 & Knuckles, developed and published by SEGA.</p>
+        <p><strong>Sonic 3 A.I.R. project:</strong> Sonic 3: Angel Island Revisited is a community enhancement project led by Eukaryot.</p>
+        <p><strong>Browser build:</strong> The arcade links to a community web build hosted by Sappharad. The exact browser-build contributors should be credited by that build's own notices.</p>
+        <p><strong>Requirement:</strong> The linked version requires the user to supply an original Sonic 3 & Knuckles ROM. Hedge does not provide the ROM.</p>
+        <p><a href="https://projects.sappharad.com/s3air_ios/20260328_beta/sonic3air_web.html">Linked browser build</a> · <a href="https://sonic3air.org/">Sonic 3 A.I.R. project</a>.</p>
+      </article>
+      <article class="credit">
+        <h3>Sonic Mania Plus Web</h3><span class="tag">THIRD-PARTY WEB VERSION</span>
+        <p><strong>Original game:</strong> Sonic Mania was developed by PagodaWest Games and Headcannon in collaboration with SEGA and published by SEGA. Sonic Mania Plus is the expanded release.</p>
+        <p><strong>Franchise and publishing:</strong> SEGA. Sonic Mania Plus Web is not made by Hedge. The specific web conversion author is not confirmed in the arcade listing.</p>
+      </article>
+      <article class="credit">
+        <h3>Sonic CD Web</h3><span class="tag">WEB VERSION</span>
+        <p><strong>Original game:</strong> Sonic CD, developed by Sonic Team and published by SEGA.</p>
+        <p><strong>Web version:</strong> Originally made by Crush Arcade.</p>
+        <p><strong>Rights:</strong> Sonic the Hedgehog and Sonic CD are SEGA properties. Hedge did not create the original game or the original web version.</p>
+      </article>
+      <article class="credit">
+        <h3>Sonic and the Fallen Star</h3><span class="tag">FAN GAME</span><span class="tag">WEB PORT</span>
+        <p><strong>Original game:</strong> Sonic and the Fallen Star, created by Ugs and its credited fan-game contributors.</p>
+        <p><strong>Browser version:</strong> A web port of the fan game. The port author's name is not confirmed in the arcade listing.</p>
+        <p><strong>Rights:</strong> Sonic the Hedgehog is owned by SEGA. This is an unofficial fan project and is not made by Hedge.</p>
+      </article>
+      <article class="credit">
+        <h3>Sonic Classic Heroes</h3><span class="tag">THIRD-PARTY FAN GAME</span>
+        <p><strong>Original project:</strong> Sonic Classic Heroes is a fan-made combination/mod project based on classic Sonic games. Public releases are associated with the Sonic Classic Heroes community and contributors including MainMemory and Cinossu.</p>
+        <p><strong>Browser version:</strong> The port or hosting conversion author is not confirmed in the arcade listing.</p>
+        <p><strong>Rights:</strong> Sonic characters and trademarks belong to SEGA. Not made by Hedge.</p>
+      </article>
+      <article class="credit">
+        <h3>Sonic Megamix V5.0 Web</h3><span class="tag">COMMUNITY PROJECT</span><span class="tag">HOSTED BY HEDGE</span>
+        <p><strong>Original project:</strong> Sonic Megamix is a long-running fan game/mod project created by Team Megamix and its contributors.</p>
+        <p><strong>Browser version:</strong> The arcade hosts a web port. The exact port author and the specific V5.0 build contributors are not confirmed in the arcade listing.</p>
+        <p><strong>Rights:</strong> Sonic the Hedgehog and related official assets remain the property of SEGA and their respective rights holders.</p>
+      </article>
+      <article class="credit">
+        <h3>Sonic.EXE Web</h3><span class="tag">FAN-HORROR PROJECT</span><span class="tag">HOSTED BY HEDGE</span>
+        <p><strong>Original concept:</strong> Sonic.EXE originated as a Sonic horror creepypasta created by JC-the-Hyena.</p>
+        <p><strong>Browser game:</strong> The particular game build and web-port author linked in the arcade are not confirmed here; this entry should not be mistaken for an official SEGA game or a Hedge-created project.</p>
+        <p><strong>Rights:</strong> Sonic the Hedgehog is owned by SEGA. Fan-made Sonic.EXE material is unofficial.</p>
+      </article>
+      <article class="credit">
+        <h3>Sonic The Webhog</h3><span class="tag">THIRD-PARTY BROWSER GAME</span>
+        <p><strong>Game creator:</strong> Not reliably identified from the arcade listing.</p>
+        <p><strong>Browser version:</strong> Third-party Sonic browser game hosted in the arcade. Hedge did not create it. Creator and source links should be added when confirmed.</p>
+        <p><strong>Rights:</strong> Sonic the Hedgehog is a SEGA property.</p>
+      </article>
+      <article class="credit">
+        <h3>WebSonic</h3><span class="tag">THIRD-PARTY ENGINE / PROJECT</span><span class="tag">HOSTED BY HEDGE</span>
+        <p><strong>Project:</strong> A browser-based WebGL Sonic engine/project.</p>
+        <p><strong>Engine author:</strong> Not reliably identified from the arcade listing. This is not a Hedge-created engine; the exact upstream project and contributors should be added once verified.</p>
+        <p><strong>Rights:</strong> Sonic characters and trademarks belong to SEGA and their respective rights holders.</p>
+      </article>
+      <article class="credit">
+        <h3>Sonic 1 Forever + Sonic 2 Absolute Web</h3><span class="tag">THIRD-PARTY FAN PROJECTS</span><span class="tag">THIRD-PARTY WEB PORTS</span>
+        <p><strong>Sonic 1 Forever:</strong> A community-made enhanced version of the original Sonic the Hedgehog. The project is maintained by its own independent development team.</p>
+        <p><strong>Sonic 2 Absolute:</strong> A community-made enhanced version of Sonic the Hedgehog 2, maintained by its own independent development team.</p>
+        <p><strong>Browser versions:</strong> The arcade links to third-party web builds. Neither project nor its web port is made by Hedge. These versions may require original game data files; Hedge does not supply copyrighted game data.</p>
+        <p><strong>Rights:</strong> Sonic the Hedgehog is owned by SEGA.</p>
+      </article>
+    </div>
 
-    <section class="panel">
-      <h3>Ownership & acknowledgements</h3>
-      <div class="credit"><strong>Third-party content</strong><p>All original games, characters, artwork, music, trademarks, and related materials belong to their respective creators and rights holders. Hedge Web Arcade does not claim ownership of third-party works.</p></div>
-      <div class="credit"><strong>Thank you!</strong><p>Thanks to the original developers, port authors, contributors, and players who support browser gaming.</p></div>
-    </section>
+    <h2 class="group-title">Other games & fan projects</h2>
+    <div class="credit-list">
+      <article class="credit">
+        <h3>DELTARUNE Fight Simulator</h3><span class="tag">FAN PROJECT</span>
+        <p><strong>Simulator creator:</strong> puskevi.</p>
+        <p><strong>Original games and characters:</strong> DELTARUNE and UNDERTALE were created by Toby Fox. Their characters, music, sprites, and text belong to Toby Fox and the respective rights holders.</p>
+        <p><strong>Project status:</strong> Unofficial fan-made battle simulator; not affiliated with or endorsed by Toby Fox or the DELTARUNE team.</p>
+        <p><a href="https://deltarunesim.com/">Official simulator website</a> · <a href="https://github.com/SakuuGamerYTB/deltarunesim">Project repository</a>.</p>
+      </article>
+      <article class="credit">
+        <h3>DELTARUNE Chapters 1–4 Web</h3><span class="tag">THIRD-PARTY WEB PORT</span>
+        <p><strong>Original game:</strong> DELTARUNE, created by Toby Fox.</p>
+        <p><strong>Web port:</strong> Mollomm1, as identified by the arcade listing. This entry is a third-party browser version, not made by Hedge.</p>
+        <p><strong>Rights:</strong> DELTARUNE and its characters, music, art, and text are © Toby Fox and their respective rights holders.</p>
+        <p><a href="https://mollomm1.github.io/test/">Linked web version</a>.</p>
+      </article>
+      <article class="credit">
+        <h3>DELTARUNE Web</h3><span class="tag">THIRD-PARTY WEB PORT</span><span class="tag">HOSTED BY HEDGE</span>
+        <p><strong>Original game:</strong> DELTARUNE, created by Toby Fox.</p>
+        <p><strong>Web-port creator:</strong> shortpie (.shortpie.), creator of DELTARUNEWeb / deltarune.win.</p>
+        <p><strong>Hosting:</strong> Hedge hosts a link to the project; Hedge did not create the port or original game.</p>
+        <p><a href="https://shortpie.itch.io/deltaruneweb">Port creator's project page</a>.</p>
+      </article>
+      <article class="credit">
+        <h3>UNDERTALE Web</h3><span class="tag">THIRD-PARTY WEB PORT</span>
+        <p><strong>Original game:</strong> UNDERTALE, created by Toby Fox.</p>
+        <p><strong>Web-port creator:</strong> shortpie (.shortpie.), who also created the DELTARUNE web port.</p>
+        <p><strong>Hosting:</strong> The arcade links to the third-party web project. Hedge did not create the original game or port.</p>
+        <p><a href="https://shortpie.dev/">Port creator's website</a>.</p>
+      </article>
+      <article class="credit">
+        <h3>Bendy and the Ink Machine Web</h3><span class="tag">THIRD-PARTY WEB PORT</span>
+        <p><strong>Original game:</strong> Bendy and the Ink Machine, created by Joey Drew Studios (formerly Kindly Beast).</p>
+        <p><strong>Web port:</strong> Crackers, as identified by the arcade listing.</p>
+        <p><strong>Rights:</strong> Bendy and its characters and original materials belong to Joey Drew Studios and their respective rights holders. Not made by Hedge.</p>
+      </article>
+      <article class="credit">
+        <h3>Cuphead Web</h3><span class="tag">THIRD-PARTY WEB VERSION</span>
+        <p><strong>Original game developer:</strong> Studio MDHR, founded by brothers Chad and Jared Moldenhauer.</p>
+        <p><strong>Original creative work:</strong> Cuphead's hand-drawn animation, art, gameplay, and original music were produced by the Studio MDHR team and credited collaborators; the original soundtrack was composed by Kristofer Maddigan.</p>
+        <p><strong>Browser version:</strong> The specific web-port author is not confirmed in the arcade listing. Not made by Hedge.</p>
+        <p><a href="https://studiomdhr.com/about-us/">Studio MDHR — About</a> · <a href="https://studiomdhr.com/our-games/">Studio MDHR — Games</a>.</p>
+      </article>
+      <article class="credit">
+        <h3>Baldi's Basics Plus Web</h3><span class="tag">THIRD-PARTY WEB VERSION</span>
+        <p><strong>Original game creator / developer:</strong> Basically Games, led by Micah McGonigal (Mystman12).</p>
+        <p><strong>Browser version:</strong> The web conversion author is not confirmed in the arcade listing. Not made by Hedge.</p>
+        <p><strong>Rights:</strong> Baldi's Basics and its characters and original materials belong to Basically Games and their respective rights holders.</p>
+      </article>
+      <article class="credit">
+        <h3>Super Mario 64 Web</h3><span class="tag">COMMUNITY WEB PORT</span>
+        <p><strong>Original game:</strong> Super Mario 64, developed and published by Nintendo.</p>
+        <p><strong>Browser port:</strong> Andrew Nakas, as identified by the arcade listing.</p>
+        <p><strong>Rights:</strong> Mario and Super Mario 64 are Nintendo properties. This is an unofficial browser port, not a Hedge-created game.</p>
+      </article>
+      <article class="credit">
+        <h3>Super Mario Galaxy Web</h3><span class="tag">THIRD-PARTY WEB PORT</span>
+        <p><strong>Original game:</strong> Super Mario Galaxy, developed by Nintendo EAD Tokyo and published by Nintendo.</p>
+        <p><strong>Web-port basis:</strong> The arcade listing identifies modified GalaxyQuest and Petari decompilation work as sources used by the browser port.</p>
+        <p><strong>Browser-port author:</strong> Not confirmed in the arcade listing. Not made by Hedge.</p>
+        <p><strong>Rights:</strong> Mario and Super Mario Galaxy are Nintendo properties.</p>
+      </article>
+      <article class="credit">
+        <h3>Capuchin Web</h3><span class="tag">THIRD-PARTY WEB PORT</span>
+        <p><strong>Original game:</strong> Capuchin, an independent VR horror game.</p>
+        <p><strong>Original developer:</strong> The exact developer attribution for the particular Capuchin build linked in the arcade needs confirmation; this page deliberately does not guess.</p>
+        <p><strong>Browser port:</strong> The port author is not confirmed in the arcade listing. Not made by Hedge.</p>
+      </article>
+      <article class="credit">
+        <h3>Happyhills Homicide 1</h3><span class="tag">THIRD-PARTY WEB PORT</span>
+        <p><strong>Original game:</strong> Happyhills Homicide, an independent horror game.</p>
+        <p><strong>Original creator and browser-port author:</strong> Not reliably confirmed from the arcade listing. These names should be added after checking the exact source build.</p>
+        <p><strong>Hosting:</strong> Third-party game/port; not made by Hedge.</p>
+      </article>
+      <article class="credit">
+        <h3>Garten of Banban 1</h3><span class="tag">THIRD-PARTY BROWSER PORT</span>
+        <p><strong>Original game developer:</strong> Euphoric Brothers.</p>
+        <p><strong>Browser port/source:</strong> The arcade version is sourced from GN-Math. The exact individual port contributor is not identified in the current arcade listing.</p>
+        <p><strong>Rights:</strong> Garten of Banban and its characters belong to Euphoric Brothers and their respective rights holders. Not made by Hedge.</p>
+      </article>
+      <article class="credit">
+        <h3>Doki Doki Literature Club! Web</h3><span class="tag">THIRD-PARTY WEB PORT</span><span class="tag">HOSTED BY HEDGE</span>
+        <p><strong>Original game developer:</strong> Team Salvato, founded by Dan Salvato.</p>
+        <p><strong>Key original credits:</strong> Dan Salvato — writing, coding, and music; Satchely — character art; Velinquent — background art; Jillian Ashcraft — vocals.</p>
+        <p><strong>Web port:</strong> Third-party browser port hosted by Hedge. The specific port author is not confirmed in the arcade listing.</p>
+        <p><a href="https://teamsalvato.itch.io/ddlc">Team Salvato's official DDLC page</a>.</p>
+      </article>
+      <article class="credit">
+        <h3>Minecraft: Story Mode Web</h3><span class="tag">THIRD-PARTY WEB PORT</span><span class="tag">HOSTED BY HEDGE</span>
+        <p><strong>Original game developer:</strong> Telltale Games, in collaboration with Mojang.</p>
+        <p><strong>Original franchise:</strong> Minecraft is owned by Mojang Studios / Microsoft. Minecraft: Story Mode was developed and published by Telltale Games under license.</p>
+        <p><strong>Browser port:</strong> Third-party web port hosted by Hedge. The individual port author and exact build source are not confirmed in the arcade listing.</p>
+      </article>
+      <article class="credit">
+        <h3>Minecraft: Story Mode Web — Alternate Port</h3><span class="tag">THIRD-PARTY WEB PORT</span><span class="tag">HOSTED BY HEDGE</span>
+        <p><strong>Original game developer:</strong> Telltale Games, in collaboration with Mojang.</p>
+        <p><strong>Browser port:</strong> A separate third-party browser version hosted by Hedge. The port author and source build are not confirmed in the arcade listing.</p>
+        <p><strong>Rights:</strong> Minecraft is a Mojang Studios / Microsoft property; Minecraft: Story Mode is associated with Telltale Games. Not made by Hedge.</p>
+      </article>
+    </div>
 
+    <h2 class="group-title">Website & hosting credits</h2>
+    <div class="credit-list">
+      <article class="credit">
+        <h3>Hedge Web Arcade</h3>
+        <p><strong>Creator and maintainer:</strong> Hedge (HedgePlays2).</p>
+        <p><strong>Hosting:</strong> GitHub Pages.</p>
+        <p><strong>Purpose:</strong> A curated browser-game library. Game developers and port authors retain credit for their own work; Hedge is responsible for the arcade website and the entries explicitly marked as Hedge projects.</p>
+      </article>
+      <article class="credit">
+        <h3>Community contributors & corrections</h3>
+        <p>Thanks to the original developers, artists, composers, programmers, translators, port authors, maintainers, and players. If a credit is missing or inaccurate, please report the exact game title and the correct source or creator link through the arcade's GitHub issue tracker.</p>
+        <p><a href="https://github.com/HedgePlays2/HedgePlays2.github.io/issues">Suggest a credit correction</a>.</p>
+      </article>
+    </div>
     <a class="back" href="./">← Back to the Arcade</a>
   </main>
   <footer>2026 Hedge — Hosted on GitHub Pages</footer>
