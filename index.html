@@ -2290,7 +2290,7 @@
     document.getElementById("featuredNext").addEventListener("click", () => showNextFeaturedGame(1));
     featuredDetails.addEventListener("click", () => {
       const card = featuredCards[featuredIndex];
-      if (card) openGamePage(card);
+      if (card) openGameDetails(card);
     });
     featuredPlay.addEventListener("click", event => {
       event.preventDefault();
@@ -2355,7 +2355,7 @@
       detailsButton.className = "details-button";
       detailsButton.textContent = "View Details";
       detailsButton.setAttribute("aria-label", "View details for " + title);
-      detailsButton.addEventListener("click", () => openGamePage(card));
+      detailsButton.addEventListener("click", () => openGameDetails(card));
       actions.appendChild(detailsButton);
       card.appendChild(actions);
 
