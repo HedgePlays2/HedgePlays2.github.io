@@ -1829,6 +1829,262 @@
       .details-actions { margin: 24px -17px -24px; padding: 13px 17px 16px; }
       .details-play, .details-report { flex: 1 1 100%; }
     }
+
+    /* HEDGE WEB ARCADE — visual identity pass */
+    :root {
+      --arcade-lime: #9be34b;
+      --arcade-lime-bright: #b7ff62;
+      --arcade-panel: #17211a;
+      --arcade-panel-2: #202d23;
+      --arcade-line: rgba(164, 215, 137, .19);
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      background:
+        radial-gradient(ellipse at 76% 0%, rgba(118,185,0,.12), transparent 34rem),
+        radial-gradient(ellipse at 8% 44%, rgba(41,92,48,.12), transparent 38rem),
+        #0d120e;
+      background-attachment: fixed;
+    }
+
+    header {
+      min-height: 84px;
+      padding: 13px 30px;
+      background: rgba(17,25,19,.94);
+      border-bottom: 1px solid rgba(160,220,116,.22);
+      backdrop-filter: blur(16px);
+    }
+    header .logo {
+      filter: drop-shadow(0 0 12px rgba(139,211,50,.25));
+    }
+    header h1 {
+      font-size: clamp(1.25rem, 2.2vw, 1.7rem);
+      letter-spacing: -.7px;
+    }
+    header .subtitle {
+      font-size: .82rem;
+      letter-spacing: .15px;
+    }
+    header .theme-toggle {
+      border-radius: 999px;
+      padding: 9px 15px;
+      font-size: .82rem;
+      box-shadow: 0 5px 18px rgba(118,185,0,.15);
+    }
+
+    .sidebar {
+      background: rgba(18,27,20,.96);
+      border-right: 1px solid var(--arcade-line);
+      backdrop-filter: blur(14px);
+    }
+    .sidebar-heading {
+      color: #839783;
+      letter-spacing: 2px;
+      font-size: .66rem;
+    }
+    .sidebar-link {
+      border: 1px solid transparent;
+      border-radius: 9px;
+      transition: background .18s ease, color .18s ease, border-color .18s ease, transform .18s ease;
+    }
+    .sidebar-link:hover {
+      transform: translateX(3px);
+      border-color: rgba(155,227,75,.18);
+      background: rgba(118,185,0,.09);
+    }
+    .sidebar-link.active,
+    .library-sidebar-link[aria-pressed="true"] {
+      background: linear-gradient(100deg, rgba(118,185,0,.2), rgba(118,185,0,.045));
+      border-color: rgba(155,227,75,.24);
+      box-shadow: inset 3px 0 var(--arcade-lime);
+      color: #c4f28d;
+    }
+
+    .featured {
+      min-height: 340px;
+      border: 1px solid rgba(160,220,116,.32);
+      border-radius: 19px;
+      background:
+        radial-gradient(ellipse at 8% 0%, rgba(155,227,75,.22), transparent 45%),
+        linear-gradient(120deg, #243529 0%, #17221a 54%, #101711 100%);
+      box-shadow: 0 22px 55px rgba(0,0,0,.34), inset 0 1px rgba(255,255,255,.035);
+    }
+    .featured-kicker { color: var(--arcade-lime-bright); }
+    .featured h2 {
+      font-size: clamp(2rem, 3.8vw, 3.15rem);
+      letter-spacing: -1.25px;
+      text-wrap: balance;
+    }
+    .featured p { line-height: 1.72; }
+    .featured-art {
+      border-radius: 14px;
+      border-color: rgba(183,255,98,.28);
+      box-shadow: 0 18px 40px rgba(0,0,0,.4);
+    }
+    .featured-art img { filter: saturate(1.08) contrast(1.04); }
+    .featured .featured-play {
+      box-shadow: 0 8px 24px rgba(118,185,0,.25);
+    }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 1.55rem;
+      letter-spacing: -.45px;
+    }
+    .section-title::before {
+      content: "";
+      width: 5px;
+      height: 25px;
+      flex: 0 0 5px;
+      border-radius: 8px;
+      background: linear-gradient(var(--arcade-lime-bright), #548b19);
+      box-shadow: 0 0 15px rgba(155,227,75,.35);
+    }
+    .section-description { line-height: 1.65; }
+
+    .arcade-tools input,
+    .arcade-tools select,
+    .arcade-tools button {
+      min-height: 44px;
+      border-radius: 10px;
+    }
+    .arcade-tools input,
+    .arcade-tools select {
+      background: rgba(24,34,26,.92);
+      border-color: #3b4d3d;
+    }
+    .arcade-tools button {
+      box-shadow: 0 6px 18px rgba(118,185,0,.14);
+      transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+    }
+    .arcade-tools button:hover { transform: translateY(-2px); box-shadow: 0 9px 22px rgba(118,185,0,.22); }
+
+    .grid {
+      grid-template-columns: repeat(auto-fill, minmax(235px, 1fr));
+      gap: 21px;
+    }
+    .card {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(166,198,157,.13);
+      border-radius: 14px;
+      background: linear-gradient(155deg, rgba(34,48,37,.98), rgba(19,27,21,.99));
+      box-shadow: 0 9px 24px rgba(0,0,0,.2);
+      transition: transform .24s ease, border-color .24s ease, box-shadow .24s ease;
+    }
+    .card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      pointer-events: none;
+      opacity: 0;
+      background: linear-gradient(135deg, rgba(183,255,98,.08), transparent 48%);
+      transition: opacity .24s ease;
+    }
+    .card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(169,235,112,.58);
+      box-shadow: 0 18px 38px rgba(0,0,0,.36), 0 0 24px rgba(118,185,0,.09);
+    }
+    .card:hover::after { opacity: 1; }
+    .card .game-cover,
+    .card .card-image {
+      height: 166px;
+      margin-bottom: 17px;
+      object-fit: cover;
+      filter: saturate(1.05);
+      transition: transform .35s ease, filter .35s ease;
+    }
+    .card:hover .game-cover,
+    .card:hover .card-image {
+      transform: scale(1.025);
+      filter: saturate(1.18);
+    }
+    .card h2 {
+      font-size: 1.08rem;
+      letter-spacing: -.2px;
+    }
+    .card p { font-size: .88rem; }
+    .device-label, .creator-label {
+      border-radius: 999px;
+      letter-spacing: .1px;
+    }
+    .device-label {
+      border-color: rgba(155,227,75,.32);
+      background: rgba(118,185,0,.14);
+      color: #c2f18c;
+      box-shadow: inset 0 1px rgba(255,255,255,.04);
+    }
+    .favorite-button, .details-button {
+      border-radius: 8px;
+      transition: transform .18s ease, border-color .18s ease, background .18s ease;
+    }
+    .favorite-button:hover, .details-button:hover { transform: translateY(-2px); border-color: #8fca55; }
+    .card a:not(.report-link) {
+      border-radius: 8px;
+      box-shadow: 0 6px 16px rgba(118,185,0,.16);
+    }
+
+    .details-dialog {
+      border-radius: 20px;
+      border-color: rgba(173,236,111,.35);
+      background:
+        radial-gradient(ellipse at 50% 0%, rgba(118,185,0,.13), transparent 48%),
+        #111a14;
+      box-shadow: 0 30px 100px rgba(0,0,0,.8), 0 0 35px rgba(118,185,0,.08);
+    }
+    .details-hero img { filter: saturate(1.08) contrast(1.03); }
+    .details-content h2 { letter-spacing: -.8px; }
+    .details-play {
+      border-radius: 9px;
+      box-shadow: 0 8px 22px rgba(118,185,0,.2);
+    }
+
+    @media (max-width: 800px) {
+      header { gap: 12px; padding: 12px 16px; }
+      header .subtitle { display: none; }
+      .sidebar {
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        gap: 6px;
+        padding: 10px 12px;
+        scrollbar-width: thin;
+      }
+      .sidebar-heading, .sidebar-divider { display: none; }
+      .sidebar-link { flex: 0 0 auto; width: auto; white-space: nowrap; }
+      .sidebar-link:hover { transform: none; }
+      .featured { margin: 20px 14px 24px; }
+      .section-title, .section-description { margin-left: 16px; margin-right: 16px; }
+      .arcade-tools { margin-left: 14px; margin-right: 14px; }
+      .grid { padding: 18px 14px 34px; }
+      .trending-section { margin: 20px 14px; }
+    }
+    @media (max-width: 520px) {
+      header { min-height: 70px; }
+      header .logo { width: 38px; height: 38px; }
+      header h1 { font-size: 1.12rem; }
+      header .theme-toggle { top: 16px; right: 12px; padding: 8px 10px; font-size: .72rem; }
+      .featured { gap: 16px; padding: 20px; }
+      .featured-art, .featured-art img { min-height: 180px; }
+      .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 11px; }
+      .card { padding: 12px; border-radius: 11px; }
+      .card .game-cover, .card .card-image {
+        width: calc(100% + 24px);
+        height: 116px;
+        margin: -12px -12px 12px;
+        border-radius: 10px 10px 0 0;
+      }
+      .card h2 { font-size: .94rem; }
+      .card p { font-size: .78rem; }
+      .device-label, .creator-label { font-size: .66rem; padding: 5px 7px; }
+      .card a:not(.report-link) { padding: 8px 10px; font-size: .76rem; }
+      .favorite-button, .details-button { padding: 6px 7px; font-size: .72rem; }
+    }
   </style>
 </head>
 
