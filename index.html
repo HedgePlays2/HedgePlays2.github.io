@@ -221,6 +221,27 @@
       line-height: 1.45;
     }
 
+    .device-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin: 10px 7px 0 0;
+      padding: 6px 9px;
+      border: 1px solid #527b2e;
+      border-radius: 6px;
+      background: rgba(118,185,0,.13);
+      color: #a9e66a;
+      font-size: .74rem;
+      font-weight: 800;
+      letter-spacing: .2px;
+    }
+
+    body:not(.dark-mode) .device-label {
+      background: #edf6e5;
+      border-color: #c4d9b5;
+      color: #456d1d;
+    }
+
     .creator-label {
       display: inline-block;
       margin-top: 12px;
@@ -2672,6 +2693,26 @@
       "Sonic 2 Absolute Web": { developer:"Team Absolute (fan project) · Browser host: third party", genre:"2D platformer · Enhanced Sonic fan project", gameplay:"Sonic 2 Absolute is an enhanced fan project based on Sonic the Hedgehog 2, aiming to improve and expand the classic experience while retaining its side-scrolling platform gameplay. This browser entry is a third-party web host, not made by Hedge.", source:"Sonic 2 Absolute browser listing", url:"https://s2a.t4ctica1yt.workers.dev/" },
     };
 
+    const touchControlTitles = new Set([
+      "Sonic Time Twisted Web Port",
+      "Sonic 1 Web",
+      "Sonic CD Web",
+      "Sonic Mania Plus Web",
+      "Sonic Triple Trouble 16-bit Web",
+      "Sonic 1 Forever Web",
+      "Sonic 2 Absolute Web",
+      "Happyhills Homicide 1",
+      "UNDERTALE Web"
+    ]);
+
+    function makeTouchBadge() {
+      const badge = document.createElement("span");
+      badge.className = "device-label";
+      badge.textContent = "🎮 Touch Controls";
+      badge.setAttribute("aria-label", "Touch controls available");
+      return badge;
+    }
+
     function openGameDetails(card) {
       activeDetailsCard = card;
       const title = card.querySelector("h2")?.textContent.trim() || "Game Details";
@@ -2691,6 +2732,9 @@
         label.className = "creator-label";
         label.textContent = creator.textContent.trim();
         detailsMeta.appendChild(label);
+      }
+      if (touchControlTitles.has(title)) {
+        detailsMeta.appendChild(makeTouchBadge());
       }
       const listingDescription = paragraphs.shift() || "Game information has not been added yet.";
       const researched = researchedGameInfo[title];
@@ -2870,6 +2914,11 @@
       card.dataset.gameTitle = title;
       card.dataset.categories = categoriesFor(title, description).join(" ");
       card.dataset.recent = recentlyAddedTitles.has(title) ? "true" : "false";
+
+      if (touchControlTitles.has(title)) {
+        const heading = card.querySelector("h2");
+        if (heading) heading.insertAdjacentElement("afterend", makeTouchBadge());
+      }
 
       const actions = document.createElement("div");
       actions.className = "card-library-actions";
