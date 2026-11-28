@@ -2085,7 +2085,38 @@
       .card a:not(.report-link) { padding: 8px 10px; font-size: .76rem; }
       .favorite-button, .details-button { padding: 6px 7px; font-size: .72rem; }
     }
-  </style>
+  
+    /* Player progress, achievements, and recent launches */
+    .player-progress,.recently-played-section{margin:24px 34px 24px 252px;padding:22px 24px;border:1px solid #344238;border-radius:13px;background:linear-gradient(135deg,#1c261f,#151c17);box-shadow:0 10px 28px rgba(0,0,0,.18)}
+    .progress-heading,.recently-played-heading{display:flex;align-items:center;justify-content:space-between;gap:16px}
+    .progress-heading h2,.recently-played-heading h2{margin:5px 0;color:#edf5eb;font-size:1.35rem}
+    .progress-heading p,.recently-played-heading p{margin:0;color:#9eaca1;font-size:.88rem}
+    .progress-kicker{color:#a9df63;font-size:.68rem;font-weight:900;letter-spacing:1.5px}
+    .achievement-total{display:flex;flex-direction:column;align-items:center;justify-content:center;min-width:82px;padding:10px 13px;border:1px solid #4a633c;border-radius:9px;background:#253321;color:#b9e879}
+    .achievement-total strong{font-size:1.25rem;font-variant-numeric:tabular-nums}.achievement-total span{font-size:.58rem;font-weight:900;letter-spacing:1px}
+    .achievement-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:10px;margin-top:18px}
+    .achievement-item{display:flex;align-items:center;gap:11px;min-height:60px;padding:11px;border:1px solid #354338;border-radius:9px;background:#18211b;opacity:.58}
+    .achievement-item.unlocked{border-color:#638d3b;background:linear-gradient(120deg,#293b24,#1d2a20);opacity:1}
+    .achievement-icon{display:grid;place-items:center;flex:0 0 36px;height:36px;border-radius:9px;background:#2a342c;font-size:1.2rem}
+    .achievement-item.unlocked .achievement-icon{background:#405c2d}
+    .achievement-copy{display:flex;flex-direction:column;gap:3px;min-width:0}
+    .achievement-copy strong{color:#e8f1e5;font-size:.78rem}.achievement-copy span{color:#9eaca1;font-size:.68rem;line-height:1.35}
+    .recently-played-heading button{border:1px solid #526650;border-radius:7px;padding:9px 12px;background:#263329;color:#c5e7a0;font-size:.72rem;font-weight:900;cursor:pointer}
+    .recently-played-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px;margin-top:16px}
+    .recent-played-item{display:flex;align-items:center;gap:10px;min-width:0;padding:9px;border:1px solid #344238;border-radius:9px;background:#18211b}
+    .recent-played-item img{width:68px;height:48px;object-fit:cover;border-radius:6px;background:#101713}
+    .recent-played-copy{display:flex;flex-direction:column;gap:5px;min-width:0}
+    .recent-played-copy strong{overflow:hidden;color:#e8f1e5;font-size:.78rem;text-overflow:ellipsis;white-space:nowrap}
+    .recent-played-copy button{align-self:flex-start;padding:0;border:0;background:transparent;color:#a9df63;font-size:.7rem;font-weight:800;cursor:pointer}
+    .recent-played-empty{grid-column:1/-1;margin:0;padding:15px;color:#9eaca1;font-size:.85rem}
+    body:not(.dark-mode) .player-progress,body:not(.dark-mode) .recently-played-section{background:linear-gradient(135deg,#f5faf2,#e9f1e5);border-color:#cbdac5}
+    body:not(.dark-mode) .progress-heading h2,body:not(.dark-mode) .recently-played-heading h2,body:not(.dark-mode) .achievement-copy strong,body:not(.dark-mode) .recent-played-copy strong{color:#243326}
+    body:not(.dark-mode) .progress-heading p,body:not(.dark-mode) .recently-played-heading p,body:not(.dark-mode) .achievement-copy span{color:#607061}
+    body:not(.dark-mode) .achievement-item,body:not(.dark-mode) .recent-played-item{background:#fff;border-color:#d4e0d0}
+    body:not(.dark-mode) .achievement-item.unlocked{background:#e8f3df;border-color:#b6d29e}
+    @media(max-width:760px){.player-progress,.recently-played-section{margin:20px 16px;padding:18px}.progress-heading{align-items:flex-start}.achievement-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.recently-played-list{grid-template-columns:1fr 1fr}}
+    @media(max-width:430px){.achievement-grid,.recently-played-list{grid-template-columns:1fr}.recently-played-heading{align-items:flex-start;flex-direction:column}}
+</style>
 </head>
 
 <body class="dark-mode">
@@ -2148,6 +2179,19 @@
     </div>
   </section>
 
+
+  <section class="player-progress" aria-label="Player progress">
+    <div class="progress-heading">
+      <div><span class="progress-kicker">YOUR ARCADE PROFILE</span><h2>🏆 Achievements</h2><p>Milestones you unlock while exploring the arcade.</p></div>
+      <div class="achievement-total"><strong id="achievementCount">0 / 5</strong><span>UNLOCKED</span></div>
+    </div>
+    <div class="achievement-grid" id="achievementGrid" aria-live="polite"></div>
+  </section>
+
+  <section class="recently-played-section" aria-labelledby="recentlyPlayedHeading">
+    <div class="recently-played-heading"><div><h2 id="recentlyPlayedHeading">🕘 Recently Played</h2><p>Your latest launches on this device.</p></div><button type="button" id="viewPlayedGames">VIEW LIBRARY →</button></div>
+    <div class="recently-played-list" id="recentlyPlayedList"><p class="trending-empty">Your recently played games will appear here.</p></div>
+  </section>
 
   <section class="trending-section" aria-labelledby="trendingHeading">
     <h2 class="trending-heading" id="trendingHeading">🔥 Trending Games</h2>
@@ -2710,6 +2754,58 @@
     }
     let playCounts = readPlayCounts();
 
+    const ACHIEVEMENTS_KEY = "hedgeArcadeAchievements";
+    const achievementDefinitions = [
+      { id:"first-launch", icon:"🎮", title:"First Steps", description:"Launch your first game.", test:() => Object.values(playCounts).some(count => Number(count) > 0) },
+      { id:"explorer", icon:"🧭", title:"Game Explorer", description:"Play 5 different games.", test:() => recentlyPlayed.length >= 5 },
+      { id:"ten-launches", icon:"🔥", title:"On a Roll", description:"Launch games 10 times.", test:() => Object.values(playCounts).reduce((sum,count) => sum + (Number(count)||0),0) >= 10 },
+      { id:"favorite", icon:"⭐", title:"Collector", description:"Add a game to your favorites.", test:() => favoriteGames.size >= 1 },
+      { id:"five-favorites", icon:"💚", title:"Superfan", description:"Favorite 5 games.", test:() => favoriteGames.size >= 5 }
+    ];
+    function readAchievements() {
+      try { const value=JSON.parse(localStorage.getItem(ACHIEVEMENTS_KEY)||"[]"); return Array.isArray(value)?value:[]; }
+      catch(error) { return []; }
+    }
+    let unlockedAchievements = new Set(readAchievements());
+    function renderAchievements() {
+      achievementDefinitions.forEach(item => { if(item.test()) unlockedAchievements.add(item.id); });
+      try { localStorage.setItem(ACHIEVEMENTS_KEY,JSON.stringify(Array.from(unlockedAchievements))); } catch(error) {}
+      const grid=document.getElementById("achievementGrid");
+      if(!grid) return;
+      grid.replaceChildren();
+      achievementDefinitions.forEach(item => {
+        const unlocked=unlockedAchievements.has(item.id);
+        const tile=document.createElement("div");
+        tile.className="achievement-item"+(unlocked?" unlocked":"");
+        const icon=document.createElement("span"); icon.className="achievement-icon"; icon.textContent=unlocked?item.icon:"🔒";
+        const copy=document.createElement("div"); copy.className="achievement-copy";
+        const title=document.createElement("strong"); title.textContent=item.title;
+        const description=document.createElement("span"); description.textContent=item.description;
+        copy.append(title,description); tile.append(icon,copy); grid.appendChild(tile);
+      });
+      document.getElementById("achievementCount").textContent=unlockedAchievements.size+" / "+achievementDefinitions.length;
+    }
+    function renderRecentlyPlayed() {
+      const list=document.getElementById("recentlyPlayedList");
+      if(!list) return;
+      list.replaceChildren();
+      const recentCards=recentlyPlayed.map(title=>gameCards.find(card=>(card.dataset.gameTitle||card.querySelector("h2")?.textContent.trim())===title)).filter(Boolean).slice(0,4);
+      if(!recentCards.length) {
+        const empty=document.createElement("p"); empty.className="recent-played-empty"; empty.textContent="Your recently played games will appear here."; list.appendChild(empty); return;
+      }
+      recentCards.forEach(card=>{
+        const title=card.dataset.gameTitle||card.querySelector("h2")?.textContent.trim()||"Game";
+        const cover=card.querySelector(".card-image,.game-cover");
+        const playLink=Array.from(card.querySelectorAll("a")).find(link=>!link.classList.contains("report-link")&&/play|launch|open|visit/i.test(link.textContent));
+        const item=document.createElement("div"); item.className="recent-played-item";
+        if(cover){const image=document.createElement("img");image.src=cover.currentSrc||cover.src;image.alt="";image.loading="lazy";item.appendChild(image);}
+        const copy=document.createElement("div");copy.className="recent-played-copy";
+        const name=document.createElement("strong");name.textContent=title;name.title=title;copy.appendChild(name);
+        if(playLink){const button=document.createElement("button");button.type="button";button.textContent="▶ Play again";button.addEventListener("click",()=>playLink.click());copy.appendChild(button);}
+        item.appendChild(copy);list.appendChild(item);
+      });
+    }
+
     function updateTrendingGames() {
       const list = document.getElementById("trendingList");
       if (!list) return;
@@ -2757,6 +2853,8 @@
         tile.appendChild(copy);
         list.appendChild(tile);
       });
+      renderRecentlyPlayed();
+      renderAchievements();
     }
 
     // These are the most recently added arcade entries.
@@ -3193,6 +3291,7 @@
         else favoriteGames.add(title);
         saveLibraryList(FAVORITES_KEY, Array.from(favoriteGames));
         updateFavoriteButton();
+        renderAchievements();
         filterGames();
       });
       actions.appendChild(favoriteButton);
@@ -3215,11 +3314,13 @@
           playCounts[title] = (Number(playCounts[title]) || 0) + 1;
           try { localStorage.setItem(PLAY_COUNTS_KEY, JSON.stringify(playCounts)); } catch (error) {}
           updateTrendingGames();
+          filterGames();
         });
       }
     });
 
     updateTrendingGames();
+    document.getElementById("viewPlayedGames").addEventListener("click", () => { setLibraryView("played"); });
 
     const noGames = document.createElement("p");
     noGames.className = "no-games";
