@@ -2094,13 +2094,26 @@
     .progress-kicker{color:#a9df63;font-size:.68rem;font-weight:900;letter-spacing:1.5px}
     .achievement-total{display:flex;flex-direction:column;align-items:center;justify-content:center;min-width:82px;padding:10px 13px;border:1px solid #4a633c;border-radius:9px;background:#253321;color:#b9e879}
     .achievement-total strong{font-size:1.25rem;font-variant-numeric:tabular-nums}.achievement-total span{font-size:.58rem;font-weight:900;letter-spacing:1px}
-    .achievement-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:10px;margin-top:18px}
-    .achievement-item{display:flex;align-items:center;gap:11px;min-height:60px;padding:11px;border:1px solid #354338;border-radius:9px;background:#18211b;opacity:.58}
-    .achievement-item.unlocked{border-color:#638d3b;background:linear-gradient(120deg,#293b24,#1d2a20);opacity:1}
-    .achievement-icon{display:grid;place-items:center;flex:0 0 36px;height:36px;border-radius:9px;background:#2a342c;font-size:1.2rem}
-    .achievement-item.unlocked .achievement-icon{background:#405c2d}
-    .achievement-copy{display:flex;flex-direction:column;gap:3px;min-width:0}
-    .achievement-copy strong{color:#e8f1e5;font-size:.78rem}.achievement-copy span{color:#9eaca1;font-size:.68rem;line-height:1.35}
+    .achievement-overview{margin-top:18px}.achievement-progress-track{height:9px;overflow:hidden;border-radius:20px;background:#0e140f;border:1px solid #354338}.achievement-progress-track span{display:block;width:0;height:100%;border-radius:20px;background:linear-gradient(90deg,#76b900,#b4e66b);box-shadow:0 0 12px rgba(118,185,0,.35);transition:width .35s ease}.achievement-overview-meta{display:flex;justify-content:space-between;gap:12px;margin-top:7px;color:#9eaca1;font-size:.7rem;font-weight:700}
+    .achievement-toolbar{display:flex;align-items:center;gap:9px;margin-top:18px;color:#9eaca1;font-size:.68rem;font-weight:900;letter-spacing:.8px}.achievement-toolbar select{padding:7px 10px;border:1px solid #405044;border-radius:6px;background:#202a22;color:#e3eee0;font:inherit;letter-spacing:0}.achievement-toolbar-note{margin-left:auto;font-size:.68rem;font-weight:500;letter-spacing:0}
+    .achievement-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin-top:12px}
+    .achievement-item{position:relative;display:flex;align-items:flex-start;gap:12px;min-height:91px;padding:13px;border:1px solid #354338;border-radius:9px;background:linear-gradient(135deg,#1a211c,#151c17);opacity:.72;overflow:hidden}
+    .achievement-item.unlocked{border-color:#638d3b;background:linear-gradient(120deg,#293b24,#1d2a20);opacity:1;box-shadow:inset 3px 0 #76b900}
+    .achievement-icon{display:grid;place-items:center;flex:0 0 42px;height:42px;border-radius:9px;background:#2a342c;font-size:1.35rem;filter:grayscale(1);opacity:.65}
+    .achievement-item.unlocked .achievement-icon{background:#405c2d;filter:none;opacity:1}
+    .achievement-copy{display:flex;flex-direction:column;gap:4px;min-width:0;flex:1}
+    .achievement-copy strong{color:#e8f1e5;font-size:.82rem}.achievement-copy span{color:#9eaca1;font-size:.7rem;line-height:1.35}
+    .achievement-rarity{align-self:flex-start;margin-top:2px;padding:3px 6px;border-radius:4px;background:#29332b;color:#aebcaf;font-size:.55rem;font-weight:900;letter-spacing:.6px;white-space:nowrap}
+    .achievement-rarity.uncommon{background:#233a28;color:#8edb91}.achievement-rarity.rare{background:#24334a;color:#83baff}.achievement-rarity.epic{background:#3a294b;color:#d1a1ff}.achievement-rarity.legendary{background:#4a3820;color:#ffd477}
+    .achievement-card-progress{position:absolute;left:13px;right:13px;bottom:10px;height:4px;border-radius:10px;background:#0d130e;overflow:hidden}.achievement-card-progress span{display:block;height:100%;background:#76b900;border-radius:10px}
+    .achievement-item{padding-bottom:24px}
+    body:not(.dark-mode) .achievement-toolbar select{background:#fff;color:#243326;border-color:#cbdac5}
+    body:not(.dark-mode) .achievement-progress-track{background:#dce7d7;border-color:#cbdac5}
+    body:not(.dark-mode) .achievement-rarity{background:#e5ebe3;color:#586657}
+    body:not(.dark-mode) .achievement-rarity.uncommon{background:#e1f2e1;color:#397342}
+    body:not(.dark-mode) .achievement-rarity.rare{background:#e2edfa;color:#315f91}
+    body:not(.dark-mode) .achievement-rarity.epic{background:#f0e5fa;color:#704a91}
+    body:not(.dark-mode) .achievement-rarity.legendary{background:#fbf0d9;color:#89601a}
     .recently-played-heading button{border:1px solid #526650;border-radius:7px;padding:9px 12px;background:#263329;color:#c5e7a0;font-size:.72rem;font-weight:900;cursor:pointer}
     .recently-played-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px;margin-top:16px}
     .recent-played-item{display:flex;align-items:center;gap:10px;min-width:0;padding:9px;border:1px solid #344238;border-radius:9px;background:#18211b}
@@ -2183,7 +2196,16 @@
   <section class="player-progress" aria-label="Player progress">
     <div class="progress-heading">
       <div><span class="progress-kicker">YOUR ARCADE PROFILE</span><h2>🏆 Achievements</h2><p>Milestones you unlock while exploring the arcade.</p></div>
-      <div class="achievement-total"><strong id="achievementCount">0 / 5</strong><span>UNLOCKED</span></div>
+      <div class="achievement-total"><strong id="achievementCount">0 / 25</strong><span>UNLOCKED</span></div>
+    </div>
+    <div class="achievement-overview">
+      <div class="achievement-progress-track"><span id="achievementProgressFill"></span></div>
+      <div class="achievement-overview-meta"><span id="achievementProgressLabel">0% complete</span><span id="achievementRemaining">25 achievements to go</span></div>
+    </div>
+    <div class="achievement-toolbar">
+      <label for="achievementFilter">SHOW</label>
+      <select id="achievementFilter"><option value="all">All achievements</option><option value="unlocked">Unlocked</option><option value="locked">Locked</option></select>
+      <span class="achievement-toolbar-note">Unlock them by playing games across the arcade.</span>
     </div>
     <div class="achievement-grid" id="achievementGrid" aria-live="polite"></div>
   </section>
@@ -2755,12 +2777,36 @@
     let playCounts = readPlayCounts();
 
     const ACHIEVEMENTS_KEY = "hedgeArcadeAchievements";
+    const totalLaunches = () => Object.values(playCounts).reduce((sum,count) => sum + (Number(count)||0),0);
+    const uniqueGamesPlayed = () => Object.keys(playCounts).filter(title => Number(playCounts[title]) > 0).length;
+    const favoriteCount = () => favoriteGames.size;
+    const gamesInCategory = category => gameCards.filter(card => Number(playCounts[card.dataset.gameTitle || ""]) > 0 && (card.dataset.categories || "").split(" ").includes(category)).length;
     const achievementDefinitions = [
-      { id:"first-launch", icon:"🎮", title:"First Steps", description:"Launch your first game.", test:() => Object.values(playCounts).some(count => Number(count) > 0) },
-      { id:"explorer", icon:"🧭", title:"Game Explorer", description:"Play 5 different games.", test:() => recentlyPlayed.length >= 5 },
-      { id:"ten-launches", icon:"🔥", title:"On a Roll", description:"Launch games 10 times.", test:() => Object.values(playCounts).reduce((sum,count) => sum + (Number(count)||0),0) >= 10 },
-      { id:"favorite", icon:"⭐", title:"Collector", description:"Add a game to your favorites.", test:() => favoriteGames.size >= 1 },
-      { id:"five-favorites", icon:"💚", title:"Superfan", description:"Favorite 5 games.", test:() => favoriteGames.size >= 5 }
+      {id:"first-launch",icon:"🎮",title:"First Steps",description:"Launch your first game.",category:"Getting Started",rarity:"Common",goal:1,progress:totalLaunches},
+      {id:"explorer",icon:"🧭",title:"Game Explorer",description:"Play 5 different games.",category:"Exploration",rarity:"Uncommon",goal:5,progress:uniqueGamesPlayed},
+      {id:"ten-launches",icon:"🔥",title:"On a Roll",description:"Launch games 10 times.",category:"Playing",rarity:"Common",goal:10,progress:totalLaunches},
+      {id:"favorite",icon:"⭐",title:"Collector",description:"Add a game to your favorites.",category:"Collection",rarity:"Common",goal:1,progress:favoriteCount},
+      {id:"five-favorites",icon:"💚",title:"Superfan",description:"Favorite 5 games.",category:"Collection",rarity:"Rare",goal:5,progress:favoriteCount},
+      {id:"launch-5",icon:"🕹️",title:"Just Warming Up",description:"Launch 5 games in total.",category:"Playing",rarity:"Common",goal:5,progress:totalLaunches},
+      {id:"launch-25",icon:"⚡",title:"Arcade Regular",description:"Launch games 25 times.",category:"Playing",rarity:"Uncommon",goal:25,progress:totalLaunches},
+      {id:"launch-50",icon:"💥",title:"Button Masher",description:"Launch games 50 times.",category:"Playing",rarity:"Rare",goal:50,progress:totalLaunches},
+      {id:"launch-100",icon:"👑",title:"Arcade Legend",description:"Launch games 100 times.",category:"Playing",rarity:"Legendary",goal:100,progress:totalLaunches},
+      {id:"games-10",icon:"🌎",title:"World Traveler",description:"Try 10 different games.",category:"Exploration",rarity:"Uncommon",goal:10,progress:uniqueGamesPlayed},
+      {id:"games-20",icon:"🗺️",title:"No Stone Unturned",description:"Try 20 different games.",category:"Exploration",rarity:"Epic",goal:20,progress:uniqueGamesPlayed},
+      {id:"games-30",icon:"🏅",title:"Library Conqueror",description:"Try 30 different games.",category:"Exploration",rarity:"Legendary",goal:30,progress:uniqueGamesPlayed},
+      {id:"favorites-10",icon:"💎",title:"Taste Maker",description:"Favorite 10 games.",category:"Collection",rarity:"Epic",goal:10,progress:favoriteCount},
+      {id:"favorites-20",icon:"🏆",title:"The Hoarder",description:"Favorite 20 games.",category:"Collection",rarity:"Legendary",goal:20,progress:favoriteCount},
+      {id:"sonic-fan",icon:"💨",title:"Gotta Go Fast",description:"Play 5 different Sonic games.",category:"Sonic",rarity:"Rare",goal:5,progress:() => gamesInCategory("sonic")},
+      {id:"sonic-master",icon:"🦔",title:"Blue Blur Enthusiast",description:"Play 10 different Sonic games.",category:"Sonic",rarity:"Epic",goal:10,progress:() => gamesInCategory("sonic")},
+      {id:"horror-curious",icon:"👻",title:"Brave the Dark",description:"Play 3 different horror games.",category:"Horror",rarity:"Uncommon",goal:3,progress:() => gamesInCategory("horror")},
+      {id:"horror-survivor",icon:"🩸",title:"Still Standing",description:"Play 7 different horror games.",category:"Horror",rarity:"Epic",goal:7,progress:() => gamesInCategory("horror")},
+      {id:"story-player",icon:"📖",title:"Story Seeker",description:"Play 3 RPG or story games.",category:"Story",rarity:"Uncommon",goal:3,progress:() => gamesInCategory("rpg")},
+      {id:"platform-hopper",icon:"🍄",title:"Platform Hopper",description:"Play 5 platformer games.",category:"Platformers",rarity:"Rare",goal:5,progress:() => gamesInCategory("platformer")},
+      {id:"one-more",icon:"🔁",title:"One More Round",description:"Launch the same game 5 times.",category:"Playing",rarity:"Uncommon",goal:5,progress:() => Math.max(0,...Object.values(playCounts).map(Number).filter(Number.isFinite))},
+      {id:"main-event",icon:"🎯",title:"Dedicated Player",description:"Launch the same game 10 times.",category:"Playing",rarity:"Rare",goal:10,progress:() => Math.max(0,...Object.values(playCounts).map(Number).filter(Number.isFinite))},
+      {id:"full-shelf",icon:"📚",title:"Growing Collection",description:"Favorite 3 different games.",category:"Collection",rarity:"Uncommon",goal:3,progress:favoriteCount},
+      {id:"arcade-marathon",icon:"🚀",title:"Arcade Marathon",description:"Launch games 75 times.",category:"Playing",rarity:"Epic",goal:75,progress:totalLaunches},
+      {id:"completionist",icon:"🌟",title:"Completionist",description:"Unlock every other achievement.",category:"Mastery",rarity:"Legendary",goal:24,progress:() => unlockedAchievements.size}
     ];
     function readAchievements() {
       try { const value=JSON.parse(localStorage.getItem(ACHIEVEMENTS_KEY)||"[]"); return Array.isArray(value)?value:[]; }
@@ -2768,23 +2814,38 @@
     }
     let unlockedAchievements = new Set(readAchievements());
     function renderAchievements() {
-      achievementDefinitions.forEach(item => { if(item.test()) unlockedAchievements.add(item.id); });
+      achievementDefinitions.forEach(item => { if(item.progress() >= item.goal) unlockedAchievements.add(item.id); });
+      if (unlockedAchievements.size >= achievementDefinitions.length - 1) unlockedAchievements.add("completionist");
       try { localStorage.setItem(ACHIEVEMENTS_KEY,JSON.stringify(Array.from(unlockedAchievements))); } catch(error) {}
       const grid=document.getElementById("achievementGrid");
       if(!grid) return;
+      const filter=document.getElementById("achievementFilter")?.value || "all";
       grid.replaceChildren();
-      achievementDefinitions.forEach(item => {
+      const visibleDefinitions=achievementDefinitions.filter(item => filter==="all" || (filter==="unlocked" ? unlockedAchievements.has(item.id) : !unlockedAchievements.has(item.id)));
+      visibleDefinitions.forEach(item => {
         const unlocked=unlockedAchievements.has(item.id);
+        const current=Math.min(item.goal,Math.max(0,Number(item.progress())||0));
+        const percent=Math.min(100,Math.round(current/item.goal*100));
         const tile=document.createElement("div");
         tile.className="achievement-item"+(unlocked?" unlocked":"");
         const icon=document.createElement("span"); icon.className="achievement-icon"; icon.textContent=unlocked?item.icon:"🔒";
         const copy=document.createElement("div"); copy.className="achievement-copy";
         const title=document.createElement("strong"); title.textContent=item.title;
         const description=document.createElement("span"); description.textContent=item.description;
-        copy.append(title,description); tile.append(icon,copy); grid.appendChild(tile);
+        const rarity=document.createElement("span"); rarity.className="achievement-rarity "+item.rarity.toLowerCase(); rarity.textContent=item.rarity.toUpperCase();
+        copy.append(title,description,rarity); tile.append(icon,copy);
+        if(!unlocked){const progress=document.createElement("div");progress.className="achievement-card-progress";const fill=document.createElement("span");fill.style.width=percent+"%";progress.appendChild(fill);tile.appendChild(progress);}
+        grid.appendChild(tile);
       });
-      document.getElementById("achievementCount").textContent=unlockedAchievements.size+" / "+achievementDefinitions.length;
+      const count=achievementDefinitions.filter(item=>unlockedAchievements.has(item.id)).length;
+      const total=achievementDefinitions.length;
+      document.getElementById("achievementCount").textContent=count+" / "+total;
+      document.getElementById("achievementProgressFill").style.width=Math.round(count/total*100)+"%";
+      document.getElementById("achievementProgressLabel").textContent=Math.round(count/total*100)+"% complete";
+      document.getElementById("achievementRemaining").textContent=(total-count)+" achievements to go";
+      if(!visibleDefinitions.length){const empty=document.createElement("p");empty.className="recent-played-empty";empty.textContent="Nothing in this filter yet.";grid.appendChild(empty);}
     }
+    document.getElementById("achievementFilter").addEventListener("change",renderAchievements);
     function renderRecentlyPlayed() {
       const list=document.getElementById("recentlyPlayedList");
       if(!list) return;
