@@ -1427,6 +1427,195 @@
     .compatibility-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 11px; }
     .compatibility-tag { display: inline-flex; align-items: center; gap: 5px; padding: 5px 8px; border: 1px solid #46643a; border-radius: 5px; background: rgba(118,185,0,.12); color: #b9e987; font-size: .7rem; font-weight: 800; letter-spacing: .2px; }
     body:not(.dark-mode) .compatibility-tag { background: #edf6e7; border-color: #c5d9b8; color: #456d1d; }
+
+    /* 2026 visual polish pass: clearer hierarchy, richer surfaces, and stronger focus states. */
+    :root {
+      --arcade-lime: #76b900;
+      --arcade-lime-bright: #b9f477;
+      --arcade-panel: #171f19;
+      --arcade-card: #1b251e;
+      --arcade-line: #354638;
+      --arcade-muted: #9eafa0;
+    }
+
+    body {
+      background:
+        radial-gradient(ellipse at 78% 0%, rgba(118,185,0,.075), transparent 34rem),
+        linear-gradient(180deg, #101611 0%, #0d120f 100%);
+      background-attachment: fixed;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      backdrop-filter: blur(16px);
+      background: rgba(20, 28, 22, .94);
+    }
+
+    header h1 { letter-spacing: -.65px; }
+    header .logo { filter: drop-shadow(0 0 12px rgba(118,185,0,.16)); }
+
+    .sidebar {
+      background: linear-gradient(180deg, #171f19 0%, #121914 100%);
+      box-shadow: 12px 0 32px rgba(0,0,0,.12);
+    }
+
+    .sidebar-link {
+      border: 1px solid transparent;
+      transition: background .18s ease, color .18s ease, border-color .18s ease, transform .18s ease;
+    }
+    .sidebar-link:hover { transform: translateX(2px); }
+    .sidebar-link.active,
+    .library-sidebar-link[aria-pressed="true"] {
+      border-color: rgba(166,230,111,.18);
+      box-shadow: inset 3px 0 #76b900;
+    }
+
+    .featured {
+      isolation: isolate;
+      min-height: 350px;
+      border-color: rgba(151,205,119,.3);
+      background:
+        radial-gradient(ellipse at 12% 0%, rgba(118,185,0,.22), transparent 48%),
+        linear-gradient(115deg, #202e23 0%, #17221a 58%, #101711 100%);
+    }
+    .featured::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      background: linear-gradient(90deg, rgba(9,15,10,.12), transparent 65%);
+    }
+    .featured-art { position: relative; overflow: hidden; border-radius: 12px; }
+    .featured-art img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      min-height: 260px;
+      max-height: 360px;
+      object-fit: cover;
+      filter: saturate(1.08);
+    }
+    .featured-art-caption {
+      position: absolute;
+      right: 13px;
+      bottom: 12px;
+      padding: 6px 9px;
+      border: 1px solid rgba(255,255,255,.2);
+      border-radius: 6px;
+      background: rgba(8,13,9,.72);
+      color: #eaf5e5;
+      font-size: .66rem;
+      font-weight: 900;
+      letter-spacing: 1.3px;
+      backdrop-filter: blur(8px);
+    }
+
+    .trending-section {
+      border-color: rgba(118,185,0,.25);
+      box-shadow: 0 12px 30px rgba(0,0,0,.12);
+    }
+
+    .section-title { scroll-margin-top: 100px; }
+    .section-description { max-width: 780px; line-height: 1.7; }
+
+    .arcade-tools {
+      position: relative;
+      padding-top: 14px;
+      padding-bottom: 14px;
+    }
+    .arcade-tools input,
+    .arcade-tools select {
+      box-shadow: 0 5px 18px rgba(0,0,0,.12);
+    }
+    .arcade-tools input::placeholder { color: #829184; }
+
+    .grid { align-items: stretch; }
+    .card {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      background:
+        linear-gradient(150deg, rgba(255,255,255,.025), transparent 48%),
+        linear-gradient(155deg, #1b251e, #151d17);
+    }
+    .card .game-cover,
+    .card .card-image {
+      flex: 0 0 auto;
+      height: 176px;
+    }
+    .card h2 { line-height: 1.3; }
+    .card p { flex: 1 0 auto; }
+    .card .creator-label { align-self: flex-start; line-height: 1.3; }
+    .card a:not(.report-link) {
+      align-self: flex-start;
+      margin-top: 14px;
+      box-shadow: 0 5px 16px rgba(118,185,0,.12);
+    }
+    .card a.report-link { align-self: flex-start; }
+    .card:focus-within {
+      outline: 2px solid #a8e66c;
+      outline-offset: 3px;
+    }
+
+    button, a, input, select { -webkit-tap-highlight-color: transparent; }
+    a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible {
+      outline: 2px solid #b9f477;
+      outline-offset: 3px;
+    }
+
+    footer {
+      border-top: 1px solid #2c382f;
+      background: rgba(15,21,16,.55);
+    }
+
+    @media (max-width: 800px) {
+      header { position: relative; }
+      .sidebar {
+        position: relative;
+        top: auto;
+        width: auto;
+        bottom: auto;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4px;
+        padding: 10px 14px;
+        border-right: 0;
+        border-bottom: 1px solid #2c382f;
+        box-shadow: none;
+      }
+      .sidebar-heading, .sidebar-divider, .sidebar-note { display: none; }
+      .sidebar-link { flex: 0 0 auto; }
+      .featured, .trending-section { margin-left: 18px; margin-right: 18px; }
+      .featured-art img { min-height: 190px; max-height: 250px; }
+      .section-title { margin-left: 20px; margin-right: 20px; }
+      .section-description { padding: 0 20px; }
+    }
+
+    @media (max-width: 520px) {
+      header { position: relative; }
+      .sidebar { justify-content: flex-start; overflow-x: auto; flex-wrap: nowrap; }
+      .sidebar-link { white-space: nowrap; }
+      .featured { margin-left: 12px; margin-right: 12px; padding: 18px; }
+      .featured-actions { flex-wrap: wrap; }
+      .featured-rotation-controls { margin-left: 0; }
+      .arcade-tools { padding-left: 14px; padding-right: 14px; }
+      .arcade-tools input, .arcade-tools select, .arcade-tools button { width: 100%; max-width: none; }
+      .grid { padding-left: 12px; padding-right: 12px; }
+      .card .game-cover, .card .card-image { height: 200px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        scroll-behavior: auto !important;
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+      }
+    }
+
   </style>
 </head>
 
